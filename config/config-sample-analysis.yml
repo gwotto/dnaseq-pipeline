@@ -1,0 +1,79 @@
+fastq-dir: /home/gwo/devel/dnaseq-pipeline/data/fastq/
+samples-file: /home/gwo/devel/dnaseq-pipeline/data/samples.txt
+outdir: /home/gwo/devel/dnaseq-pipeline/test/test-outdir
+
+
+## temporary directory for input and output data, e.g. on the cs
+## cluster no temporary directory is used when this is set to False or
+## ''
+scratchdir: /scratch0/
+
+grep-column: 0
+grep-term: ""
+
+paired-end: 1
+
+
+################################
+#
+#    refereces and indices
+#
+################################
+
+## all references and indices have to be in the same directory
+reference-dir: /home/gwo/devel/dnaseq-pipeline/data/reference
+
+fasta: chr19.fa
+sequence-index: [chr19.fa.*, chr19.dict]
+
+known-sites: [dbsnp_138.hg38.chr19.vcf.gz, Homo_sapiens_assembly38.known_indels.chr19.vcf.gz, Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz]
+
+known-sites-index: [dbsnp_138.hg38.chr19.vcf.gz.tbi, Homo_sapiens_assembly38.known_indels.chr19.vcf.gz.tbi, Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz.tbi]
+
+## name of file to select regions (-L option in GATK), set to '' if no
+## regions are to be selected
+intervals-file: ''
+interval-padding: 0
+
+################################
+#
+#    mapper options
+#
+################################
+
+mapper: bwa
+
+mapper-options: "-K 100000000 -Y -t 4"
+
+
+################################
+#
+#    qsub options
+#
+################################
+
+## SGE job submission
+## sets tmem and h_vmem, maybe more (48G) when using star
+mem: 3G
+## sets src, count of the free space on the scratch0 at the point of submission
+scr: 10G
+## sets tscratch, reserving this amount of space on the scratch0
+tscratch: 10G
+time: "00:12:00"
+
+
+################################
+#
+#    environment modules
+#
+################################
+
+## set to False if modules should not be used
+modules: True
+
+module-lib: /share/apps/cto/modulefiles
+
+## NOTE: this path differs on the various systems
+module-init: /usr/share/modules/init/python.py
+
+module-list: python/2.7.8, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.18.5,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.0.6, R/3.5.1

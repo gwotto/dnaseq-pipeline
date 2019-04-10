@@ -1,0 +1,13 @@
+*~
+*.el
+*.pyc
+*.pkl
+
+## ignore files  in test-outdir
+/test/test-outdir/
+
+## ignore everything in extra except tex, bib and pdf files
+/extra/*
+!/extra/*.tex
+!/extra/*.bib
+!/extra/*.pdf

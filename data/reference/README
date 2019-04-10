@@ -1,0 +1,22 @@
+# chromosome 19 sequence from ucsc
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/chromosomes/chr19.fa.gz
+
+bwa index -a bwtsw chr19.fa
+
+CreateSequenceDictionary R=chr19.fa O=chr19.dict
+
+## 2018-08-20
+## subset vcf files from GATK bundle to chr19
+## GATK bundle at
+## https://console.cloud.google.com/storage/browser/genomics-public-data/resources/broad/hg38/v0?pli=1
+
+## getting chr19 variants from a whole genome vcf file
+
+bcftools view Mills_and_1000G_gold_standard.indels.hg38.vcf.gz --regions chr19 -O z -o Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz
+
+tabix -p vcf Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz
+
+
+## 2018-08-30
+
+## chr19-exon.bed from Andrey (SureSelect_Human_All_Exon_V4_Regions_hg38_liftOver_chr19.bed)

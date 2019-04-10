@@ -1,0 +1,3 @@
+python initialize_alignment.py -c ../config/config-alignment.yml
+
+python ../bin/alignment_pipeline.py -f sample-1.pkl -c ../config/config-alignment.yml

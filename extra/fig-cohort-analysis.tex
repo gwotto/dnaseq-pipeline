@@ -1,0 +1,103 @@
+\documentclass[border=0.5cm]{standalone}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes, shapes.misc, arrows, positioning}
+\usetikzlibrary{backgrounds,fit,calc}
+
+\begin{document}
+\pagestyle{empty}
+
+\tikzset{
+  background1/.style={
+    draw,
+    %fill=yellow!30,
+    align=left
+  }}
+
+
+%% block styles
+\tikzstyle{block} = [rectangle, draw=gray, fill=gray!40,
+minimum width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{inputblock} = [rectangle, draw=blue, fill=blue!30,  
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{outputblock} = [rectangle, draw=orange, fill=orange!30, 
+minimum width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{pipeblock} = [align = right]
+\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=4em]
+
+
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{blank} = [node distance=2cm]
+
+\newcommand{\extendnode}[1]{
+  (#1)
+  ($(current bounding box.north east)!(#1)!(current bounding box.south east)$)
+  ($(current bounding box.north west)!(#1)!(current bounding box.south west)$)
+}
+
+
+\begin{tikzpicture}[%
+    >=triangle 60,
+    % Global setup of box spacing
+    node distance=1.5cm and 3cm, auto, 
+    % Default linetype for connecting boxes
+    every join/.style={norm}]
+
+    %% Draw nodes
+
+    \node [inputblock] (vcf3) {.gvcf file};
+
+    \node [inputblock, left= of vcf3, xshift=2cm] (vcf2) {.gvcf file};
+
+    \node [inputblock, right= of vcf3, xshift=-2cm] (vcf4) {.gvcf file};
+
+    \node [block, below=  of vcf3] (vcfMerge) {merged .vcf};
+
+    \node [block, below=  of vcfMerge] (vcfJoint) {genotyped .vcf};
+
+    \node [block, below=  of vcfJoint] (vcfCal) {calibrated .vcf};
+
+    \node [pipeblock, left= of vcfCal, xshift = 0cm] (alignment) {cohort analysis pipeline};
+
+
+    %% Draw edges
+
+
+    %% merged vcf
+    \path [line] (vcf2) edge
+    node [left, red, align=center, near start](CombineVariants){CombineGVCFs}
+    (vcfMerge);
+
+    \path [line] (vcf3) edge
+    (vcfMerge);
+
+    \path [line] (vcf4) edge
+    node [right, align=center, near start]{variant file \\ merging}
+    (vcfMerge);
+
+    \path [line] (vcfMerge) edge
+    node [left, red, align=center]{GenotypeGVCFs \\ VariantFiltration \\ MakeSitesOnlyVcf}
+    node [right, align=center]{ joint genotyping }
+    (vcfJoint);
+    
+    \path [line] (vcfJoint) edge
+    node [left, red, align=center]{VariantRecalibrator \\ ApplyVQSR }
+    node [right, align=center]{ variant calibration }
+    (vcfCal);
+
+
+    \begin{pgfonlayer}{background}
+      \path [use as bounding box] (current bounding box.north west) (current bounding box.south east); % Freeze current bounding box
+      % \node [fit={\extendnode{reference} (vcf1)}, background1] {};
+      \node [fit={\extendnode{vcf2} (vcfCal)}, background1] {};
+  \end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

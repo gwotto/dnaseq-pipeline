@@ -1,0 +1,128 @@
+\documentclass[border=0.5cm]{standalone}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes, shapes.misc, arrows, positioning}
+\usetikzlibrary{backgrounds,fit,calc}
+
+\begin{document}
+\pagestyle{empty}
+
+\tikzset{
+  background1/.style={
+    draw,
+    %fill=yellow!30,
+    align=left
+  }}
+
+
+%% block styles
+\tikzstyle{block} = [rectangle, draw=gray, fill=gray!40,
+minimum width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{inputblock} = [rectangle, draw=blue, fill=blue!30,  
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{outputblock} = [rectangle, draw=orange, fill=orange!30, 
+minimum width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{pipeblock} = [align = right]
+\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=4em]
+
+
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{blank} = [node distance=2cm]
+
+\newcommand{\extendnode}[1]{
+  (#1)
+  ($(current bounding box.north east)!(#1)!(current bounding box.south east)$)
+  ($(current bounding box.north west)!(#1)!(current bounding box.south west)$)
+}
+
+
+\begin{tikzpicture}[%
+    >=triangle 60,
+    % Global setup of box spacing
+    node distance=1.5cm and 3cm, auto, 
+    % Default linetype for connecting boxes
+    every join/.style={norm}]
+
+    %% Draw nodes
+
+    % single vcf
+    
+    \node [datablock] (reference) {GRCh38};
+    
+    \node [inputblock, right= of reference] (fastq) {fastq};
+
+    \node [block, below= of fastq] (bam1) {.bam file};
+
+    \node [block, below= of bam1, align=center] (bam2) {processed \\ .bam file};    
+
+    \node [outputblock, right= of fastq] (rawReadsQc) {reads QC};
+
+    \node [outputblock, right= of bam2] (recal) { recalibration table };
+
+    \node [block, below= of bam2, align=center] (bam3) { calibrated \\ .bam file };
+
+    \node [block, below= of bam3] (vcf1) { .gvcf file };
+
+    \node [pipeblock, left= of vcf1, xshift = 0cm] (alignment) {sample analysis pipeline};
+
+
+
+    %% Draw edges
+
+    % \path [line] (reference) edge 
+    % % node [above, red, align=center]{BaseRecalibrator}
+    % % node [below, align=center]{ recalibration }
+    % (bwa);
+    
+    \path [line] (fastq) edge
+    node[above, red, align=center] {fastqc}
+    node[below, align=left] {QC}
+    (rawReadsQc);
+
+    \path [line] (fastq) edge
+    node[left, red, align=center](bwa) {bwa}
+    node[right, align=left] {read alignment}
+    (bam1);
+
+    \path [line] (reference) |-
+    % node [left, red, align=left]{test}
+    (bwa);
+    
+   \path [line] (bam1) edge 
+    node [left, red, align=center]{samblaster \\ sambamba \\ MarkDuplicates}
+    node [right, align=center]{filter, sort \\index}
+    (bam2);
+
+    \path [line] (bam2) edge 
+    node [above, red, align=center]{BaseRecalibrator}
+    %node [below, align=center]{ recalibration }
+    (recal);
+
+    \path [line] (bam2) edge 
+    node [left, red, align=center]{ ApplyBQSR }
+    node [right, align=center](bqsr){ recalibration }
+    (bam3);
+    
+    \path [line] (bam3) edge 
+    node [left, red, align=center]{HaplotypeCaller}
+    node [right, align=center](vc){ variant calling}
+    (vcf1);
+
+    \path [line] (recal) |- 
+    (bqsr);
+
+
+    \begin{pgfonlayer}{background}
+      \path [use as bounding box] (current bounding box.north west) (current bounding box.south east); % Freeze current bounding box
+      \node [fit={\extendnode{reference} (vcf1)}, background1] {};
+  \end{pgfonlayer}
+
+\end{tikzpicture}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

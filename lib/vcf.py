@@ -18,7 +18,7 @@ class Vcf:
     Attributes:
     -----------
     project (str):
-       sample or cohort of samples.
+       sample or cohort name.
     vcf_dict:
        dictionary containing the file names of vcf files (values) from
        the samples (keys, see details).

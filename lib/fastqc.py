@@ -4,6 +4,23 @@ import glob
 import sys
 
 class Fastqc:
+
+
+    """Fastqc is a class and data structure that contains information
+    about the fastqc files of a sample with the elements
+
+    Attributes:
+    -----------
+    sample (str):
+       sample name.
+    fastqc_file_list:
+       list of fastqc output files for the sample.
+    fastqc_dir(str)
+       path to directory where fastqc files are located
+
+    """
+
+
     # The class "constructor" - It's actually an initializer 
     def __init__(self, sample, fastqc_file_list, fastqc_dir):
         self.sample = sample

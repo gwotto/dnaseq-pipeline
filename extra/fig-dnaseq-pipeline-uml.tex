@@ -18,68 +18,69 @@
 
 \begin{tikzpicture}
 
-  \begin{class}[text width=5cm]{GOSLib}{0,0}
-    %\attribute{owner : String}
+  \begin{class}[text width=5cm]{Fastq}{0,0}
+    \attribute{sample : String}
+    \attribute{fastq\_dir : String}
+    \attribute{fastq\_dict : Dictionary}
     %\attribute{balance : Dollars = 0}
-    \operation{selectGenes()}
-    \operation{lst2df()}
-    \operation{runGSEA()}
-    \operation{summarizeGSEA()}
-    \operation{gseaTable()}
-    \operation{plotVolcano()}
-    \operation{plotVenn()}
+    \operation{runFastqc()}
+    \operation{fastqc()}
+    \operation{runAlign()}
+    \operation{align()}
+    \operation{checkFiles()}
+    \operation{concat()}
+    \operation{copy()}
+    \operation{fastqList()}
+    \operation{fastqRepList()}
   \end{class}
 
-  \begin{class}[text width=5cm]{GOSGenomics}{-6,-5}
-    \inherit{GOSLib}
-    \attribute{}
-    \operation{}
-    \operation{}
+  \begin{class}[text width=5cm]{Fastqc}{6,0}
+    % \inherit{GOSLib}
+    \attribute{sample : String}
+    \attribute{fastqc\_dir : String}
+    \attribute{fastq\_file\_list : List}
+    \operation{checkFiles}
+    \operation{copy}
   \end{class}
 
-  \begin{class}[text width=5cm]{GOSRna}{0,-5}
-    \inherit{GOSLib}
-    \attribute{}
-    \operation{lrtList()}
-    \operation{dgelrt2Table()}
-    \operation{dgelrtList2Table}
-    \operation{dgelrtList2TestResults}
-    \operation{selectGenes(DGELRT)}
-    \operation{selectGenes(TestResults)}
-    \operation{topLrtTable()}
-    \operation{plotExprs()}
-    \operation{plotLoadings()}
-    \operation{plotHclustColors()}
+  \begin{class}[text width=5cm]{Bam}{12,0}
+    % \inherit{GOSLib}
+    \attribute{sample : String}
+    \attribute{bam\_dir : String}
+    \attribute{bam\_dict : Dictionary}
+    \attribute{index\_dict : Dictionary}
+    \operation{bamList}
+    \operation{convert2Cram()}
+    \operation{copy()}
+    \operation{delete}
+    \operation{index}
+    \operation{merge()}
+
+    \operation{runProcess()}    
+    \operation{process()}
+    \operation{runCalibrate()}
+    \operation{calibrate()}
+    \operation{runHaplotypeCaller()}
+    \operation{haplotypeCaller()}
   \end{class}
 
-  \begin{class}[text width=5cm]{GOSProtein}{6,-5}
-    \inherit{GOSLib}
-    \attribute{}
-    \operation{fit2SomaLM()}
-    \operation{SomaLM()}
-    \operation{soma2Table()}
-    \operation{plotVolcano(SomaLM)}
-    \operation{selectGenes(SomaLM)}
+  \begin{class}[text width=5cm]{Vcf}{18,0}
+    % \inherit{GOSLib}
+    \attribute{project : String}
+    \attribute{vcf\_dir : String}
+    \attribute{vcf\_dict : Dictionary}
+    \attribute{tbi\_dict : Dictionary}
+
+    \operation{vcfList}
+    \operation{copy()}
+    \operation{index}
+    \operation{runGenotype()}
+    \operation{genotype()}
+    \operation{runCalibrate()}
+    \operation{calibrate()}
   \end{class}
 
 
-  \begin{class}[text width=5cm]{GOSAnnotation}{12,0}
-    %\attribute{owner : String}
-    %\attribute{balance : Dollars = 0}
-    \operation{annotFun()}
-    \operation{annotFun(character)}
-    \operation{annotFun(data.frame)}
-    \operation{annotFun(matrix)}
-    \operation{annotFun(TopTags)}
-    \operation{goTest()}
-    \operation{goTest(character)}
-    \operation{goTest(DGELRT)}
-    \operation{goIdAnnot()}
-    \operation{hyperGPrint()}
-    \operation{pathwayTest()}
-    \operation{pathwayTestAnnot()}
-    \operation{pathwayTable()}
-  \end{class}
 
 \end{tikzpicture}
 

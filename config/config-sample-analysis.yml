@@ -43,7 +43,7 @@ interval-padding: 0
 
 mapper: bwa
 
-mapper-options: "-K 100000000 -Y -t 4"
+mapper-options: "-K 100000000 -Y -t 4 -v 2"
 
 
 ################################

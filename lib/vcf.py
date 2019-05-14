@@ -247,13 +247,16 @@ class Vcf:
         vcf_geno_temppath = os.path.join(vcf_geno_tempdir, vcf_outfile)
 
 
-        ## the temporary file for the filtered vcfs
-        vcf_filtered_tempdir = os.path.join(outdir, 'filtered-temp')
+        ## the temporary file for the filtered vcfs. not needed,
+        ## because I skip MakeSitesOnlyVcf, so filtered vcfs go to
+        ## vcf_outpath
+        
+        # vcf_filtered_tempdir = os.path.join(outdir, 'filtered-temp')
 
-        if not os.path.exists(vcf_filtered_tempdir):
-            os.makedirs(vcf_filtered_tempdir)
+        # if not os.path.exists(vcf_filtered_tempdir):
+        #     os.makedirs(vcf_filtered_tempdir)
 
-        vcf_filtered_temppath = os.path.join(vcf_filtered_tempdir, vcf_outfile)
+        # vcf_filtered_temppath = os.path.join(vcf_filtered_tempdir, vcf_outfile)
 
 
         ## fasta = reference_files.pop(0)
@@ -303,7 +306,7 @@ class Vcf:
 
         ## filter vcf
 
-        gatk_filtervcf_c = 'gatk VariantFiltration ' + filter_string + ' -V ' + vcf_geno_temppath + ' -O ' + vcf_filtered_temppath
+        gatk_filtervcf_c = 'gatk VariantFiltration ' + filter_string + ' -V ' + vcf_geno_temppath + ' -O ' + vcf_outpath
 
         print("running GATK VariantFiltration")
         print(gatk_filtervcf_c)
@@ -314,17 +317,19 @@ class Vcf:
         shutil.rmtree(vcf_geno_tempdir)
 
 
-        ## sites only vcf (picard program)
+        ## sites only vcf (picard program) this is in the GATK best
+        ## practices, but I do not use it, because I think we need the
+        ## genotype information
+        
+        # picard_makesitesonlyvcf_c = 'MakeSitesOnlyVcf I=' + vcf_filtered_temppath + ' O=' + vcf_outpath
 
-        picard_makesitesonlyvcf_c = 'MakeSitesOnlyVcf I=' + vcf_filtered_temppath + ' O=' + vcf_outpath
+        # print("running picard MakeSitesOnlyVcf")
+        # print(picard_makesitesonlyvcf_c)
 
-        print("running picard MakeSitesOnlyVcf")
-        print(picard_makesitesonlyvcf_c)
+        # os.system(picard_makesitesonlyvcf_c)
 
-        os.system(picard_makesitesonlyvcf_c)
-
-        print('deleting temporary directory ' + vcf_filtered_tempdir)
-        shutil.rmtree(vcf_filtered_tempdir)
+        # print('deleting temporary directory ' + vcf_filtered_tempdir)
+        # shutil.rmtree(vcf_filtered_tempdir)
 
         vcf_out_dict = {}
 

@@ -250,7 +250,6 @@ class Vcf:
         ## the temporary file for the filtered vcfs. not needed,
         ## because I skip MakeSitesOnlyVcf, so filtered vcfs go to
         ## vcf_outpath
-        
         # vcf_filtered_tempdir = os.path.join(outdir, 'filtered-temp')
 
         # if not os.path.exists(vcf_filtered_tempdir):

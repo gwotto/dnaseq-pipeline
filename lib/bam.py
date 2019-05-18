@@ -359,7 +359,7 @@ class Bam:
         ## open files error'. The number of open temp files seems to
         ## be smaller than with the default
         ## TODO configure memory and other java variables on pipeline start
-        sambamba_sort1_c = 'sambamba sort --memory-limit 4GB -n -t 8 --tmpdir=' + bam_tempdir + ' -o ' + bam_temppath + ' ' + bam_path
+        sambamba_sort1_c = 'sambamba sort --memory-limit 6GB -n -t 8 --tmpdir=' + bam_tempdir + ' -o ' + bam_temppath + ' ' + bam_path
         print("running sambamba")
         print(sambamba_sort1_c)
 
@@ -397,7 +397,7 @@ class Bam:
         ## open files error'. The number of open temp files seems to
         ## be smaller than with the default
         ## TODO configure memory and other java variables on pipeline start
-        sambamba_sort2_c = 'sambamba sort --memory-limit 4GB -t 8 --tmpdir=' + bam_tempdir + ' -o '   + bam_temppath + ' ' + bam_path
+        sambamba_sort2_c = 'sambamba sort --memory-limit 6GB -t 8 --tmpdir=' + bam_tempdir + ' -o '   + bam_temppath + ' ' + bam_path
         print("running sambamba")
         print(sambamba_sort2_c)
 

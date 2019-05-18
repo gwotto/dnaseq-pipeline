@@ -131,6 +131,7 @@ lfile = project + '_variant_calling.lock'
 
 lfile_path = os.path.join(outdir, lfile)
 
+## problem: if there is running process, this overwrites its log file
 if os.path.isfile(lfile_path):
     print('There is a file ' + lfile_path + ' that locks the vcf analysis job for ' +
           project + '. Is there is another instance of this pipeline running for this sample?')

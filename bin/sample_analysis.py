@@ -129,6 +129,7 @@ lfile = sample + '_alignment.lock'
 
 lfile_path = os.path.join(outdir, lfile)
 
+## problem: if there is running process, this overwrites its log file
 if os.path.isfile(lfile_path):
     print('There is a file ' + lfile_path + ' that locks the sequence analysis job for ' +
           sample + '. Is there is another instance of this pipeline running for this sample?')

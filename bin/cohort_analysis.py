@@ -158,7 +158,7 @@ else:
    
 ## == combining and genotyping vcf files ==
 
-geno_outdir = os.path.join(outdir, 'vcf-geno')
+geno_outdir = os.path.join(outdir, 'variants-genotyped')
 
 from pprint import pprint
 pprint(vcf_obj.vcf_dict)
@@ -176,7 +176,7 @@ vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
 
 ##  == variant calibration ==
 
-calibrated_outdir = os.path.join(outdir, 'vcf-calibrated')
+calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
 print('\ninitializing variant calibration...')
 

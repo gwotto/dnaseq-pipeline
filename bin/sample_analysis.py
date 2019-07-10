@@ -165,7 +165,7 @@ fastq_obj.runFastqc(fastqc_outdir = fastqc_outdir, scratchdir = scratchdir)
 
 ##  == alignment ==
 
-mapper_outdir = os.path.join(outdir, (mapper + '-raw'))
+bam_outdir = os.path.join(outdir, 'mapped-raw')
 
 if mapper == "bwa":
 
@@ -174,7 +174,7 @@ if mapper == "bwa":
     ## TODO try to cacth errors
     mapper_options=cfg['mapper-options']
 
-    bam_obj = fastq_obj.runAlign(mapper_outdir = mapper_outdir,
+    bam_obj = fastq_obj.runAlign(mapper_outdir = bam_outdir,
                                  reference_dir = reference_dir,
                                  fasta = fasta, mapper_options = mapper_options,
                                  sequence_index = sequence_index,
@@ -184,7 +184,7 @@ if mapper == "bwa":
 
 print('\ninitializing bam processing...')
 
-processed_outdir = os.path.join(outdir, 'bam-processed')
+processed_outdir = os.path.join(outdir, 'mapped-processed')
 
 bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
                              scratchdir = scratchdir,
@@ -195,7 +195,7 @@ bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
 
 print('\ninitializing base calibration...')
 
-calibrated_outdir = os.path.join(outdir, 'bam-calibrated')
+calibrated_outdir = os.path.join(outdir, 'mapped-calibrated')
 
 bam_obj = bam_obj.runCalibrate(outdir = calibrated_outdir,
                                reference_dir = reference_dir,
@@ -211,7 +211,7 @@ bam_obj = bam_obj.runCalibrate(outdir = calibrated_outdir,
 
 print('\ninitializing variant calling...')
 
-vcf_outdir = os.path.join(outdir, 'gvcf-raw')
+vcf_outdir = os.path.join(outdir, 'variants-raw')
 
 vcf_obj = bam_obj.runHaplotypeCaller(outdir = vcf_outdir,
                                      reference_dir = reference_dir,

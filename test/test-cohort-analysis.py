@@ -28,18 +28,18 @@ user = os.environ['USER']
 
 outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir'
 
-genotype_outdir = os.path.join(outdir, 'vcf-genotype')
-calibrated_outdir = os.path.join(outdir, 'vcf-calibrated')
+genotype_outdir = os.path.join(outdir, 'variants-genotyped')
+calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
 project = 'cohort-1'
 
-vcf_dir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir/gvcf-raw/'
+vcf_dir = '/home/gwo/devel/dnaseq-pipeline/data/vcf/'
 
 vcf_dict = {}
 
-vcf_dict['sample_1'] = 'sample-1.vcf.gz'
+vcf_dict['sample_1'] = 'sample-1.g.vcf.gz'
 
-vcf_dict['sample_2'] = 'sample-2.vcf.gz'
+vcf_dict['sample_2'] = 'sample-2.g.vcf.gz'
 
 vcf_obj = vcf.Vcf(project = project, vcf_dir = vcf_dir,
                   vcf_dict = vcf_dict)
@@ -54,7 +54,7 @@ reference_dir = '/home/gwo/devel/dnaseq-pipeline/data/reference'
 
 fasta = 'chr19.fa'
 
-bed = 'chr19.bed'
+bed = ''
 
 interval_padding = 0
 

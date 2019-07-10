@@ -35,7 +35,7 @@ fastq_dir = '/home/gwo/devel/dnaseq-pipeline/data/fastq/'
 outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir'
 
 fastqc_outdir = os.path.join(outdir, 'fastqc')
-mapper_outdir = os.path.join(outdir, 'bwa-raw')
+mapper_outdir = os.path.join(outdir, 'mapped-raw')
 
 scratchdir = os.path.join('/scratch0', user, sample)
 
@@ -76,7 +76,7 @@ b_obj = fastq_obj.runAlign(mapper_outdir = mapper_outdir,
                            fasta = fasta, sequence_index = sequence_index,
                            mapper_options = bwa_options, scratchdir = scratchdir)
 
-processed_outdir = os.path.join(outdir, 'bam-processed')
+processed_outdir = os.path.join(outdir, 'mapped-processed')
 
 # sambamba_options = '-n'
 
@@ -89,9 +89,7 @@ pprint(b_obj.index_dict)
 
 #### calibration
 
-calibrated_outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir/bam-calibrated'
-
-out_scratchdir = os.path.join(scratchdir, 'bam-calibrated')
+calibrated_outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir/mapped-calibrated'
 
 known_sites = ['dbsnp_138.hg38.chr19.vcf.gz', 'Homo_sapiens_assembly38.known_indels.chr19.vcf.gz', 'Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz', 'hapmap_3.3.hg38.chr19.vcf.gz', '1000G_omni2.5.hg38.chr19.vcf.gz', '1000G_phase1.snps.high_confidence.hg38.chr19.vcf.gz']
 
@@ -105,9 +103,8 @@ b_out = b_obj.runCalibrate(outdir = calibrated_outdir,
                            known_sites_index = known_sites_index,
                            scratchdir = scratchdir)
 
-vcf_outdir = os.path.join(outdir, 'gvcf-raw')
+vcf_outdir = os.path.join(outdir, 'variants-raw')
 
-## vcf_scratchdir = os.path.join(scratchdir, 'gvcf-raw')
 
 vcf_obj = b_out.runHaplotypeCaller(outdir = vcf_outdir,
                                    reference_dir = reference_dir,

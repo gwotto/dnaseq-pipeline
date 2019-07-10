@@ -81,8 +81,8 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
     (rawReadsQc);
 
     \path [line] (fastq) edge
-    node[left, red, align=center](bwa) {bwa}
-    node[right, align=left] {read alignment}
+    node[left, red, align=center](bwa) {bwa \\ samblaster \\ sambamba}
+    node[right, align=left] {read alignment \\ sort}
     (bam1);
 
     \path [line] (reference) |-
@@ -90,8 +90,8 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
     (bwa);
     
    \path [line] (bam1) edge 
-    node [left, red, align=center]{samblaster \\ sambamba \\ MarkDuplicates}
-    node [right, align=center]{filter, sort \\index}
+    node [left, red, align=center]{MarkDuplicates \\ sambamba}
+    node [right, align=center]{process \\ sort}
     (bam2);
 
     \path [line] (bam2) edge 

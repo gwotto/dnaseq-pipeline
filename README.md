@@ -5,6 +5,8 @@ dnaseq-pipeline-manual.pdf
 
 ## TODOs
 
+* optimise for scratch directory use, scratch directory use as the default
+
 * Output files with discordant and split reads. This is needed by the
   lumpy SV detection software and can be achieved by samblaster in two
   ways. See also the [samblaster github
@@ -35,11 +37,10 @@ dnaseq-pipeline-manual.pdf
   * modules True/False
   * paired end true false
 
-* reference
+* reference versioning
+  to read cram files, the reference is needed, so it should be stored safely
 	
 * object serialization and persistence of config file
-
-* using cram instead of bam
 
 * x and y chromosome
 
@@ -51,9 +52,11 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
 
 * picard MarkDuplicates is used instead of sambamba, because picard shows a slightly different behaviour (is this relevant to us?)
 
-* why are the bam files sorted twice (sambamba sort -> Picard MarkDuplicates -> sambamba sort)?
+* why are the bam files sorted twice (sambamba sort -> Picard MarkDuplicates -> sambamba sort)? first time is name sort, second time is query sort
 
 * bwa use of the hidden -K option to seed seed for deterministic mapping
+
+* why is the calibrated bam file so much smaller than the precessed bam file?
 
 ## Bugs
 

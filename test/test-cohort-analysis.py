@@ -88,7 +88,6 @@ vcf_obj = vcf_obj.runCalibrate(outdir = calibrated_outdir,
                                fasta = fasta, sequence_index = sequence_index,
                                known_sites = known_sites,
                                known_sites_index = known_sites_index,
-                               intervals_file = '', interval_padding = '',
                                snp_resource_string = snp_resource_string,
                                indel_resource_string = indel_resource_string,
                                scratchdir = scratchdir)

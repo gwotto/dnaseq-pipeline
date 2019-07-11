@@ -346,8 +346,8 @@ class Vcf:
 
 
     def runCalibrate(self, outdir, reference_dir, fasta, sequence_index,
-                     known_sites, known_sites_index, intervals_file, interval_padding,
-                     snp_resource_string, indel_resource_string, scratchdir):
+                     known_sites, known_sites_index, snp_resource_string,
+                     indel_resource_string, scratchdir):
 
         project = self.project
         vcf_dict = self.vcf_dict
@@ -393,8 +393,10 @@ class Vcf:
 
             if not os.path.exists(plot_outdir):
                 os.makedirs(plot_outdir)
-    
-            reference_files = [fasta, intervals_file] + sequence_index + known_sites + known_sites_index
+
+            ## reference_files = [fasta, intervals_file] + sequence_index + known_sites + known_sites_index
+
+            reference_files = [fasta] + sequence_index + known_sites + known_sites_index
             
             ref1 = ref.Ref(reference_dir = reference_dir,
                            reference_files = reference_files)
@@ -423,9 +425,7 @@ class Vcf:
                 vcf_obj = vcf_obj.calibrate(outdir = calibrated_scratchdir,
                                             plot_outdir = plot_scratchdir,
                                             reference_dir = reference_scratchdir,
-                                            fasta = fasta, intervals_file = intervals_file,
-                                            interval_padding = interval_padding,
-                                            known_sites = known_sites,
+                                            fasta = fasta, known_sites = known_sites,
                                             snp_resource_string = snp_resource_string,
                                             indel_resource_string = indel_resource_string)
 
@@ -445,9 +445,7 @@ class Vcf:
                 vcf_obj = self.calibrate(outdir = outdir,
                                          plot_outdir = plot_outdir,
                                          reference_dir = reference_dir,
-                                         fasta = fasta, intervals_file = intervals_file,
-                                         interval_padding = interval_padding,
-                                         known_sites = known_sites,
+                                         fasta = fasta, known_sites = known_sites,
                                          snp_resource_string = snp_resource_string,
                                          indel_resource_string = indel_resource_string)
                 
@@ -456,8 +454,8 @@ class Vcf:
     
 
 
-    def calibrate(self, outdir, plot_outdir, reference_dir, fasta, intervals_file,
-                  interval_padding, known_sites, snp_resource_string, indel_resource_string):
+    def calibrate(self, outdir, plot_outdir, reference_dir, fasta, known_sites,
+                  snp_resource_string, indel_resource_string):
  
         project = self.project
         vcf_dir = self.vcf_dir
@@ -484,12 +482,12 @@ class Vcf:
         fasta_path = os.path.join(reference_dir, fasta)
 
 
-        ## intervals option is optional
-        intervals_path = os.path.join(reference_dir, intervals_file)
-        if os.path.isfile(intervals_path):
-            intervals_option = ' -L ' + intervals_path + ' -ip ' + str(interval_padding)
-        else:
-            intervals_option = ''
+        ## interval not used in calibration step (see gatk documentation)
+        # intervals_path = os.path.join(reference_dir, intervals_file)
+        # if os.path.isfile(intervals_path):
+        #     intervals_option = ' -L ' + intervals_path + ' -ip ' + str(interval_padding)
+        # else:
+        #     intervals_option = ''
 
 
         # ## directory for output plots
@@ -515,7 +513,7 @@ class Vcf:
         ## interpolates {refdir} to the valye of ref_dir
         snp_resource_string = snp_resource_string.format(refdir = reference_dir)
         
-        gatk_snprecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + snp_cal_temppath + intervals_option + ' ' + snp_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode SNP --tranches-file ' + snp_tranches_outpath + ' --rscript-file ' +  snp_rscript_outpath
+        gatk_snprecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + snp_cal_temppath + ' ' + snp_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode SNP --tranches-file ' + snp_tranches_outpath + ' --rscript-file ' +  snp_rscript_outpath
         
         print("running GATK VariantRecalibrator with SNPs")
         print(gatk_snprecalibrator_c)
@@ -539,7 +537,7 @@ class Vcf:
         ## interpolates {refdir} to the valye of ref_dir
         indel_resource_string = indel_resource_string.format(refdir = reference_dir)
         
-        gatk_indelrecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + indel_cal_temppath + intervals_option + ' ' + indel_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode INDEL --tranches-file ' + indel_tranches_outpath + ' --rscript-file ' +  indel_rscript_outpath
+        gatk_indelrecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + indel_cal_temppath + ' ' + indel_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode INDEL --tranches-file ' + indel_tranches_outpath + ' --rscript-file ' +  indel_rscript_outpath
         
         print("running GATK VariantRecalibrator with Indels")
         print(gatk_indelrecalibrator_c)

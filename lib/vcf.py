@@ -262,7 +262,7 @@ class Vcf:
         fasta_path = os.path.join(reference_dir, fasta)
 
         
-        ## interval file is optional (not used) in CombineGVCFs, but
+        ## interval file not used in CombineGVCFs, or genotypeGVCFs but
         ## required for GenomicsDBImport
         interval_path = os.path.join(reference_dir, intervals_file)
       

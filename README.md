@@ -50,7 +50,7 @@ dnaseq-pipeline-manual.pdf
 
 The pipeline follows the standardisation effort of https://github.com/CCDG/Pipeline-Standardization/blob/master/PipelineStandard.md
 
-* picard MarkDuplicates is used instead of sambamba, because picard shows a slightly different behaviour (is this relevant to us?)
+* picard MarkDuplicates is used instead of sambamba, because picard shows a slightly different behaviour (is this relevant to us?) (reference?)
 
 * why are the bam files sorted twice (sambamba sort -> Picard MarkDuplicates -> sambamba sort)? first time is name sort, second time is query sort
 

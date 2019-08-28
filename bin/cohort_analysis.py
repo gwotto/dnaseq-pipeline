@@ -16,8 +16,6 @@ import vcf
 program = os.path.basename(sys.argv[0])
 version = dnaseq.__version__()
 
-date = subprocess.check_output('date')
-
 ## == parse import arguments ==
 parser = argparse.ArgumentParser(description='running cohort variant pipeline',
                                  prog=program,
@@ -52,7 +50,7 @@ vcf_obj_file = args.vcf_obj_file
 run_mode = args.run_mode
 
 print('running ' + program + ' version ' + version)
-print('\nstarting at: ' + date)
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
@@ -164,6 +162,7 @@ from pprint import pprint
 pprint(vcf_obj.vcf_dict)
 
 print('\ninitializing combining and genotyping vcf files...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
                               reference_dir = reference_dir,
@@ -179,6 +178,7 @@ vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
 calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
 print('\ninitializing variant calibration...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 vcf_obj = vcf_obj.runCalibrate(outdir = calibrated_outdir,
                                reference_dir = reference_dir,
@@ -202,3 +202,5 @@ if (not run_mode == 'test') and bool(scratchdir):
 if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
+
+print('\ncohort analysis finished at: ' + subprocess.check_output('date'))

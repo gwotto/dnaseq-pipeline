@@ -68,3 +68,14 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
 * when a process is started repeatedly for the same sample and there
   is a lockfile, the error message overwrites the log file
   
+* temp file problem when running without scratch: there is only one
+  temp file directory for all temp files in the bwa step (but possibly
+  also in other steps, e.g. the process step). The temp directory gets
+  deleted when one sample finishes, together with the temp files of
+  the other samples.
+  
+
+## Release
+
+* 0.1.1
+  * writes date to output at te beginning of analysis steps

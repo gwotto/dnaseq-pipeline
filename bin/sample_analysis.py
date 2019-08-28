@@ -16,8 +16,6 @@ import fastq
 program = os.path.basename(sys.argv[0])
 version = dnaseq.__version__()
 
-date = subprocess.check_output('date')
-
 ## == parse import arguments ==
 parser = argparse.ArgumentParser(description='running dnaseq pipeline',
                                  prog=program,
@@ -52,7 +50,7 @@ fastq_obj_file = args.fastq_obj_file
 run_mode = args.run_mode
 
 print('running ' + program + ' version ' + version)
-print('\nstarting at: ' + date)
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
@@ -159,6 +157,7 @@ else:
 fastqc_outdir = os.path.join(outdir, 'fastqc')
 
 print('\ninitializing fastqc quality control...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 fastq_obj.runFastqc(fastqc_outdir = fastqc_outdir, scratchdir = scratchdir)
 
@@ -170,8 +169,9 @@ bam_outdir = os.path.join(outdir, 'mapped-raw')
 if mapper == "bwa":
 
     print('\ninitializing read alignment...')
+    print('\nstarting at: ' + subprocess.check_output('date'))
 
-    ## TODO try to cacth errors
+    ## TODO try to catch errors
     mapper_options=cfg['mapper-options']
 
     bam_obj = fastq_obj.runAlign(mapper_outdir = bam_outdir,
@@ -183,6 +183,7 @@ if mapper == "bwa":
 ## == processing ==
 
 print('\ninitializing bam processing...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 processed_outdir = os.path.join(outdir, 'mapped-processed')
 
@@ -194,6 +195,7 @@ bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
 ## == base calibration ==
 
 print('\ninitializing base calibration...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 calibrated_outdir = os.path.join(outdir, 'mapped-calibrated')
 
@@ -210,6 +212,7 @@ bam_obj = bam_obj.runCalibrate(outdir = calibrated_outdir,
 ## == variant calling ==
 
 print('\ninitializing variant calling...')
+print('\nstarting at: ' + subprocess.check_output('date'))
 
 vcf_outdir = os.path.join(outdir, 'variants-raw')
 
@@ -233,3 +236,5 @@ if (not run_mode == 'test') and bool(scratchdir):
 if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
+
+print('\nsample analysis finished at: ' + subprocess.check_output('date'))

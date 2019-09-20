@@ -98,7 +98,7 @@ pprint(b_obj.index_dict)
 
 #### calibration
 
-calibrated_outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir/bam-calibrated'
+calibrated_outdir = os.path.join(outdir, 'bam-calibrated')
 
 known_sites = ['dbsnp_138.hg38.chr19.vcf.gz', 'Homo_sapiens_assembly38.known_indels.chr19.vcf.gz', 'Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz', 'hapmap_3.3.hg38.chr19.vcf.gz', '1000G_omni2.5.hg38.chr19.vcf.gz', '1000G_phase1.snps.high_confidence.hg38.chr19.vcf.gz']
 

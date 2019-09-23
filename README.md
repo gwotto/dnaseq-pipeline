@@ -1,6 +1,5 @@
 # The GOSgene DNA-seq processing pipeline
 
-(test master)
 
 For a tutorial how to use this software, please consult the manual:
 dnaseq-pipeline-manual.pdf

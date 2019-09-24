@@ -34,10 +34,10 @@ class Ref:
             ## are returned. If the pattern can not resolve to an
             ## existing file, the loop skips over it
             for r2 in glob.glob(reference_path):
-                
+            
                 r2_base = os.path.basename(r2)
                 
                 reference_scratchpath = os.path.join(target_dir, r2_base)
-
+            
                 ## TODO check if it is the same file                
                 dnaseq.copyFile(file = r2_base, source_dir = reference_dir, target_dir = target_dir)

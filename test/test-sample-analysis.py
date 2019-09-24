@@ -19,7 +19,8 @@ import fastq
 import bam
 
 ## get module environment working
-## 
+## on ubuntu the path is /usr/share/modules/init/python.py
+## this is the path on centos
 execfile('/usr/share/Modules/init/python.py')
 
 print("testing version " + dnaseq.__version__())
@@ -48,11 +49,12 @@ mapper_outdir = os.path.join(outdir, 'bwa-raw')
 
 scratchdir = os.path.join('/scratch0', user, sample)
 
-reference_dir = os.path.join(package_dir, '/data/reference')
+reference_dir = os.path.join(package_dir, 'data/reference')
 fasta = 'chr19.fa'
 
 ## indices are passed as a list, maybe better pass explicit list instead of globbing
 sequence_index = ['chr19.fa*', 'chr19.dict']
+
 
 fastq_dict = {}
 fastq_dict['replicate_1'] = {}
@@ -85,6 +87,7 @@ b_obj = fastq_obj.runAlign(mapper_outdir = mapper_outdir,
                            fasta = fasta, sequence_index = sequence_index,
                            mapper_options = bwa_options, scratchdir = scratchdir)
 
+
 processed_outdir = os.path.join(outdir, 'bam-processed')
 
 # sambamba_options = '-n'
@@ -111,6 +114,7 @@ b_out = b_obj.runCalibrate(outdir = calibrated_outdir,
                            known_sites = known_sites,
                            known_sites_index = known_sites_index,
                            scratchdir = scratchdir)
+
 
 vcf_outdir = os.path.join(outdir, 'gvcf-raw')
 

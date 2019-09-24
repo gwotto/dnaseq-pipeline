@@ -62,3 +62,8 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
   https://stackoverflow.com/questions/42544885/error-when-mkdir-in-multi-threads-in-python
   and
   http://deepix.github.io/2017/02/02/eexists.html
+
+* globbing of reference files in Ref.copy:
+
+	only existing files are returned. If the pattern can not resolve
+    to an existing file, the loop skips over it

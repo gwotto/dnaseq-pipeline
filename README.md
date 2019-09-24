@@ -1,5 +1,6 @@
 # The GOSgene DNA-seq processing pipeline
 
+
 For a tutorial how to use this software, please consult the manual:
 dnaseq-pipeline-manual.pdf
 
@@ -73,7 +74,11 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
   also in other steps, e.g. the process step). The temp directory gets
   deleted when one sample finishes, together with the temp files of
   the other samples.
-  
+
+* globbing of reference files in Ref.copy:
+
+	only existing files are returned. If the pattern can not resolve
+    to an existing file, the loop skips over it
 
 ## Release
 

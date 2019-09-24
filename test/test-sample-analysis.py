@@ -4,15 +4,24 @@ import pickle
 
 from pprint import pprint
 
-bindir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(bindir, "../lib/"))
+## bindir = os.path.dirname(os.path.realpath(__file__))
+
+bin_dir = os.path.dirname(os.path.realpath(__file__))
+
+package_dir = os.path.normpath(os.path.join(bin_dir, '..'))
+
+lib_dir = os.path.join(package_dir, "lib")
+
+sys.path.append(lib_dir)
 
 import dnaseq
 import fastq
 import bam
 
 ## get module environment working
-execfile('/usr/share/modules/init/python.py')
+## on ubuntu the path is /usr/share/modules/init/python.py
+## this is the path on centos
+execfile('/usr/share/Modules/init/python.py')
 
 print("testing version " + dnaseq.__version__())
 
@@ -30,20 +39,22 @@ user = os.environ['USER']
 
 sample = 'sample-1'
 
-fastq_dir = '/home/gwo/devel/dnaseq-pipeline/data/fastq/'
 
-outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir'
+fastq_dir =  os.path.join(package_dir,  'data/fastq/')
+
+outdir = os.path.join(package_dir, 'test/test-outdir')
 
 fastqc_outdir = os.path.join(outdir, 'fastqc')
 mapper_outdir = os.path.join(outdir, 'mapped-raw')
 
 scratchdir = os.path.join('/scratch0', user, sample)
 
-reference_dir = '/home/gwo/devel/dnaseq-pipeline/data/reference'
+reference_dir = os.path.join(package_dir, 'data/reference')
 fasta = 'chr19.fa'
 
 ## indices are passed as a list, maybe better pass explicit list instead of globbing
 sequence_index = ['chr19.fa*', 'chr19.dict']
+
 
 fastq_dict = {}
 fastq_dict['replicate_1'] = {}
@@ -76,7 +87,8 @@ b_obj = fastq_obj.runAlign(mapper_outdir = mapper_outdir,
                            fasta = fasta, sequence_index = sequence_index,
                            mapper_options = bwa_options, scratchdir = scratchdir)
 
-processed_outdir = os.path.join(outdir, 'mapped-processed')
+
+processed_outdir = os.path.join(outdir, 'bam-processed')
 
 # sambamba_options = '-n'
 
@@ -89,7 +101,7 @@ pprint(b_obj.index_dict)
 
 #### calibration
 
-calibrated_outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir/mapped-calibrated'
+calibrated_outdir = os.path.join(outdir, 'bam-calibrated')
 
 known_sites = ['dbsnp_138.hg38.chr19.vcf.gz', 'Homo_sapiens_assembly38.known_indels.chr19.vcf.gz', 'Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz', 'hapmap_3.3.hg38.chr19.vcf.gz', '1000G_omni2.5.hg38.chr19.vcf.gz', '1000G_phase1.snps.high_confidence.hg38.chr19.vcf.gz']
 
@@ -103,8 +115,8 @@ b_out = b_obj.runCalibrate(outdir = calibrated_outdir,
                            known_sites_index = known_sites_index,
                            scratchdir = scratchdir)
 
-vcf_outdir = os.path.join(outdir, 'variants-raw')
 
+vcf_outdir = os.path.join(outdir, 'gvcf-raw')
 
 vcf_obj = b_out.runHaplotypeCaller(outdir = vcf_outdir,
                                    reference_dir = reference_dir,

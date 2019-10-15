@@ -91,5 +91,10 @@ dnaseq-pipeline-manual.pdf
 
 ## Release
 
+* 0.1.2
+  * test on new cluster. interval list optional input for base
+    calibration, variant calling, combining and genotyping vcfs.
+  * version() function
+
 * 0.1.1
-  * writes date to output at te beginning of analysis steps
+  * writes date to output at the beginning of analysis steps

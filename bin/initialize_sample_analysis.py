@@ -31,6 +31,11 @@ parser.add_argument("-r", "--run-mode", choices=['cluster', 'server', 'test'],
                     dest = "run_mode", default='test', metavar = '',
                     help="mode in which to run, can be cluster, server, test, default is test")
 
+parser.add_argument('-v', '--version',
+                    ## metavar = '',
+                    action = 'version', version='%(prog)s ' + version,
+                    help='prints out the version of the program')
+
 args = parser.parse_args()
 
 ## run mode

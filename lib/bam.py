@@ -48,9 +48,6 @@ class Bam:
 
     """
 
-
-
-
     # The class "constructor" - It's actually an initializer 
     def __init__(self, sample = None, bam_dir = None, bam_dict = None, index_dict = None):
 
@@ -490,14 +487,15 @@ class Bam:
             
             ref1 = ref.Ref(reference_dir = reference_dir,
                            reference_files = reference_files)
-                
+
+            
             if bool(scratchdir):
 
                 print("Using temporary directory " + scratchdir)
                 
                 reference_scratchdir = dnaseq.createScratchDir(scratchdir = scratchdir,
                                                                source_dir = reference_dir)
-            
+                
                 ## better return a ref object that sits on scratch
                 ref1.copy(target_dir = reference_scratchdir)
 
@@ -582,8 +580,10 @@ class Bam:
             f1_string = '--known-sites ' + f1_path
             known_sites_string = known_sites_string + f1_string + ' '
 
+
         gatk_recalibrate_c = "gatk BaseRecalibrator --verbosity=WARNING --preserve-qscores-less-than 6  -R " + fasta_path + " -I " + bam_path + " -O " + recal_outpath + intervals_option + ' ' + known_sites_string
-            
+
+        
         print("running GATK BaseRecalibrator")
         print(gatk_recalibrate_c)
 
@@ -591,6 +591,7 @@ class Bam:
 
         gatk_applybqsr_c = "gatk ApplyBQSR -verbosity=WARNING --read-filter MappingQualityNotZeroReadFilter --preserve-qscores-less-than 6 --static-quantized-quals 10 --static-quantized-quals 20 --static-quantized-quals 30 -R " + fasta_path + " -I " + bam_path + " --bqsr-recal-file " + recal_outpath + ' -O ' + bam_outpath + intervals_option
 
+        
         print("running GATK ApplyBQSR")
         print(gatk_applybqsr_c)
 
@@ -599,7 +600,6 @@ class Bam:
         ## remove input bam, currently this is done by the calling function
         # print('deleting scratch directory ' + bam_dir)
         # shutil.rmtree(bam_dir)
-
 
         ## output bam
         
@@ -669,10 +669,9 @@ class Bam:
                 os.makedirs(outdir)
 
             reference_files = [fasta, intervals_file] + sequence_index
-            
+
             ref1 = ref.Ref(reference_dir = reference_dir,
                            reference_files = reference_files)
-
 
             if bool(scratchdir):
 

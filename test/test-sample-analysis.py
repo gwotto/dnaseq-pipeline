@@ -19,9 +19,10 @@ import fastq
 import bam
 
 ## get module environment working
-## on ubuntu the path is /usr/share/modules/init/python.py
-## this is the path on centos
-execfile('/usr/share/Modules/init/python.py')
+## on ubuntu
+execfile('/usr/share/modules/init/python.py')
+## on centos
+## execfile('/usr/share/Modules/init/python.py')
 
 print("testing version " + dnaseq.__version__())
 

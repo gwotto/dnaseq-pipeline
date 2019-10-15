@@ -14,6 +14,9 @@ sys.path.append(os.path.join(bindir, "../lib/"))
 import dnaseq
 import fastq
 
+program = os.path.basename(sys.argv[0])
+version = dnaseq.__version__()
+
 ## parse import arguments
 parser = argparse.ArgumentParser(description = "initializing dnaseq sample analysis pipeline")
 
@@ -30,15 +33,18 @@ parser.add_argument("-r", "--run-mode", choices=['cluster', 'server', 'test'],
 
 args = parser.parse_args()
 
+## run mode
+run_mode = args.run_mode
+
+print('running ' + program + ' version ' + version)
+print('\nstarting at: ' + subprocess.check_output('date'))
+
 ## get configurations from yaml file
 yml_file = args.config_file
 ## returns an open file handle
 yml_fh = open(yml_file, 'r')
 
 cfg = yaml.load(yml_fh)
-
-## run mode
-run_mode = args.run_mode
 
 samples_file = cfg['samples-file']
 outdir = cfg['outdir']

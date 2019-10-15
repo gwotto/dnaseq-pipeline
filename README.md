@@ -26,10 +26,7 @@ dnaseq-pipeline-manual.pdf
   ```sh
     samtools view -h samp.bam | samblaster -a -e -d samp.disc.sam -s samp.split.sam -o /dev/null
   ```
-  
-* Option to have genome reference files and vcf files for variant
-  calibration in different directories
-  
+    
 * checking if programs used are in path
 
 * configuration
@@ -49,7 +46,7 @@ dnaseq-pipeline-manual.pdf
 
 ## Questions/Discussion points
 
-The pipeline follows the standardisation effort of https://github.com/CCDG/Pipeline-Standardization/blob/master/PipelineStandard.md
+* The alignment part of the pipeline follows the standardisation effort of https://github.com/CCDG/Pipeline-Standardization/blob/master/PipelineStandard.md
 
 * picard MarkDuplicates is used instead of sambamba, because picard shows a slightly different behaviour (is this relevant to us?) (reference?)
 
@@ -57,7 +54,20 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
 
 * bwa use of the hidden -K option to seed seed for deterministic mapping
 
-* why is the calibrated bam file so much smaller than the precessed bam file?
+* The variant calling part of the pipeline follows GATK best practices: https://github.com/gatk-workflows/broad-prod-wgs-germline-snps-indels/blob/master/PairedEndSingleSampleWf.wdl
+
+* output of HaplotypeCaller is GVCF format
+
+* interval lists are optional input, used in base calibration, variant calling, combining and genotyping vcfs, but not used in variant recalibration.
+
+* vcf calibration with chr19 test data gives error
+
+	A USER ERROR has occurred: Bad input: Values for MQRankSum
+    annotation not detected for ANY training variant in the input
+    callset. VariantAnnotator may be used to add these annotations.
+
+  Is this because the sample size is small and the samples are small?
+
 
 ## Bugs
 
@@ -76,9 +86,8 @@ The pipeline follows the standardisation effort of https://github.com/CCDG/Pipel
   the other samples.
 
 * globbing of reference files in Ref.copy:
-
-	only existing files are returned. If the pattern can not resolve
-    to an existing file, the loop skips over it
+  only existing files are returned. If the pattern can not resolve
+  to an existing file, the loop skips over it
 
 ## Release
 

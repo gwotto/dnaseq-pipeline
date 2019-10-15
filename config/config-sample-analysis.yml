@@ -1,12 +1,12 @@
-fastq-dir: /home/gwo/devel/dnaseq-pipeline/data/fastq/
-samples-file: /home/gwo/devel/dnaseq-pipeline/data/samples.txt
-outdir: /home/gwo/devel/dnaseq-pipeline/test/test-outdir
+fastq-dir: /path/to/fastq-directory/
+samples-file: /path/to/samples-file.txt
+outdir: /path/to/output-directory/
 
 
 ## temporary directory for input and output data, e.g. on the cs
 ## cluster no temporary directory is used when this is set to False or
 ## ''
-scratchdir: /scratch0/
+scratchdir: /path/to/scratch-directory/
 
 grep-column: 0
 grep-term: ""
@@ -21,8 +21,9 @@ paired-end: 1
 ################################
 
 ## all references and indices have to be in the same directory
-reference-dir: /home/gwo/devel/dnaseq-pipeline/data/reference
+reference-dir: /path/to/reference-directory/
 
+## check reference name
 fasta: chr19.fa
 sequence-index: [chr19.fa.*, chr19.dict]
 
@@ -74,6 +75,9 @@ modules: True
 module-lib: /share/apps/cto/modulefiles
 
 ## NOTE: this path differs on the various systems
+## on ubuntu
 module-init: /usr/share/modules/init/python.py
+## on centos
+## module-init: /usr/share/Modules/init/python.py
 
 module-list: python/2.7.8, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.18.5,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.0.6, R/3.5.1

@@ -3,8 +3,13 @@ import os.path
 
 from pprint import pprint
 
-bindir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(bindir, "../lib/"))
+bin_dir = os.path.dirname(os.path.realpath(__file__))
+
+package_dir = os.path.normpath(os.path.join(bin_dir, '..'))
+
+lib_dir = os.path.join(package_dir, "lib")
+
+sys.path.append(lib_dir)
 
 import dnaseq
 import vcf
@@ -17,7 +22,7 @@ execfile('/usr/share/modules/init/python.py')
 print("removing loaded modules....")
 module('purge')
 
-module_list = ['gatk/4.0.6', 'picard-tools/2.18.5']
+module_list = ['gatk/4.0.6', 'picard-tools/2.18.5', 'R/3.6.1']
 
 print("now loading modules....")
 
@@ -26,14 +31,15 @@ for mod in module_list:
 
 user = os.environ['USER']
 
-outdir = '/home/gwo/devel/dnaseq-pipeline/test/test-outdir'
+outdir = os.path.join(package_dir, 'test/test-outdir')
 
 genotype_outdir = os.path.join(outdir, 'variants-genotyped')
 calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
+
 project = 'cohort-1'
 
-vcf_dir = '/home/gwo/devel/dnaseq-pipeline/data/vcf/'
+vcf_dir =  os.path.join(package_dir,  'data/vcf/')
 
 vcf_dict = {}
 
@@ -50,7 +56,7 @@ vcf_obj = vcf_obj.index()
 
 scratchdir = os.path.join('/scratch0', user, project)
 
-reference_dir = '/home/gwo/devel/dnaseq-pipeline/data/reference'
+reference_dir = os.path.join(package_dir, 'data/reference')
 
 fasta = 'chr19.fa'
 

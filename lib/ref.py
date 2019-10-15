@@ -18,7 +18,12 @@ class Ref:
         reference_dir = self.reference_dir
         reference_files = self.reference_files
         target_dir = target_dir
-        
+
+        ## filter removes an empty element from a list returns a
+        ## list in python2, a generator in python3, thus coercion
+        ## to a list
+        reference_files = list(filter(None, reference_files))
+
         if not os.path.exists(target_dir):
             os.makedirs(target_dir)
             

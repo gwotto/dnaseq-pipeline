@@ -81,4 +81,4 @@ module-init: /usr/share/modules/init/python.py
 ## on centos
 ## module-init: /usr/share/Modules/init/python.py
 
-module-list: python/2.7.8, gatk/4.0.6, R/3.6.1, picard-tools/2.18.5
+module-list: python/2.7.8, gatk/4.1.4.1, R/3.6.1, picard-tools/2.21.8

@@ -49,6 +49,8 @@ yml_file = args.config_file
 ## returns an open file handle
 yml_fh = open(yml_file, 'r')
 
+## TODO get warning:
+## YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
 cfg = yaml.load(yml_fh)
 
 samples_file = cfg['samples-file']

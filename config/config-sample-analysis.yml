@@ -33,6 +33,7 @@ known-sites-index: [dbsnp_138.hg38.chr19.vcf.gz.tbi, Homo_sapiens_assembly38.kno
 
 ## name of file to select regions (-L option in GATK), set to '' if no
 ## regions are to be selected
+## TODO explain where it is used
 intervals-file: ''
 interval-padding: 0
 

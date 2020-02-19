@@ -37,6 +37,7 @@ known-sites-index: [dbsnp_138.hg38.chr19.vcf.gz.tbi, Homo_sapiens_assembly38.kno
 intervals-file: ''
 interval-padding: 0
 
+
 ################################
 #
 #    mapper options

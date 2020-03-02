@@ -35,7 +35,7 @@ known-sites-index: [dbsnp_138.hg38.chr19.vcf.gz.tbi, Homo_sapiens_assembly38.kno
 ## {refdir} is interpolated to the path to the reference directory
 snp-resource-string: ' --resource:hapmap,known=false,training=true,truth=true,prior=15.0 {refdir}/hapmap_3.3.hg38.chr19.vcf.gz --resource:omni,known=false,training=true,truth=false,prior=12.0 {refdir}/1000G_omni2.5.hg38.chr19.vcf.gz --resource:1000G,known=false,training=true,truth=false,prior=10.0 {refdir}/1000G_phase1.snps.high_confidence.hg38.chr19.vcf.gz --resource:dbsnp,known=true,training=false,truth=false,prior=2.0 {refdir}/dbsnp_138.hg38.chr19.vcf.gz'
 
-indel-resource-string: ' --resource mills,known=false,training=true,truth=true,prior=12:{refdir}/Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz --resource dbsnp,known=true,training=false,truth=false,prior=2.0:{refdir}/dbsnp_138.hg38.chr19.vcf.gz --resource axiomPoly,known=false,training=true,truth=false,prior=10:{refdir}/Axiom_Exome_Plus.genotypes.all_populations.poly.hg38.chr19.vcf.gz'
+indel-resource-string: ' --resource:mills,known=false,training=true,truth=true,prior=12 {refdir}/Mills_and_1000G_gold_standard.indels.hg38.chr19.vcf.gz --resource:dbsnp,known=true,training=false,truth=false,prior=2.0 {refdir}/dbsnp_138.hg38.chr19.vcf.gz --resource:axiomPoly,known=false,training=true,truth=false,prior=10 {refdir}/Axiom_Exome_Plus.genotypes.all_populations.poly.hg38.chr19.vcf.gz'
 
 
 ## list of intervals or name of bed file to select regions (gatk -L

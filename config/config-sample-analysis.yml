@@ -33,6 +33,7 @@ known-sites-index: [dbsnp_138.hg38.chr19.vcf.gz.tbi, Homo_sapiens_assembly38.kno
 
 ## name of file to select regions (-L option in GATK), set to '' if no
 ## regions are to be selected
+## TODO explain where it is used
 intervals-file: ''
 interval-padding: 0
 
@@ -80,4 +81,4 @@ module-init: /usr/share/modules/init/python.py
 ## on centos
 ## module-init: /usr/share/Modules/init/python.py
 
-module-list: python/2.7.8, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.18.5,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.0.6, R/3.5.1
+module-list: python/2.7.8, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.21.8,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.1.4.1, R/3.6.1

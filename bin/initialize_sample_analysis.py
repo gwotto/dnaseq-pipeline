@@ -205,6 +205,7 @@ for sample in id_dict:
 
       
    if run_mode == 'server':
+      
       print "\nrunning the pipeline as a subprocess on the server"
 
       print('\nalignment command: ' + pipeline_command)

@@ -170,12 +170,10 @@ for cohort in cohort_dict:
 
    if run_mode == 'cluster' or run_mode == 'test':
       mem = cfg['mem']
-      scr = cfg['scr']
       tscratch = cfg['tscratch']
       time = cfg['time']
 
-      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',scr=' + scr + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + cohort + '_variant_calling'
-
+      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + cohort + '_variant_calling'
 
    
    if run_mode == 'cluster':

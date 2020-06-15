@@ -176,7 +176,7 @@ for sample in id_dict:
 
    
    if run_mode == 'cluster':
-      print "\nrunning the pipeline on the sge queue"
+      print('\nrunning the pipeline on the sge queue')
 
       print('\nalignment command: ' + pipeline_command)
       
@@ -190,7 +190,7 @@ for sample in id_dict:
 
 
    if run_mode == 'test':
-      print "\ndry run for tests"
+      print('\ndry run for tests')
 
       print('\nalignment command: ' + pipeline_command)
       
@@ -203,7 +203,7 @@ for sample in id_dict:
       
    if run_mode == 'server':
       
-      print "\nrunning the pipeline as a subprocess on the server"
+      print('\nrunning the pipeline as a subprocess on the server')
 
       print('\nalignment command: ' + pipeline_command)
 

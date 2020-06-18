@@ -339,7 +339,7 @@ class Bam:
         bam_outfile = sample + '.bam'
         bam_outpath = os.path.join(bam_outdir, bam_outfile)
         
-        bam_tempdir = os.path.join(bam_outdir, 'temp')
+        bam_tempdir = os.path.join(bam_outdir, (sample + '-temp'))
 
         fasta_path = os.path.join(reference_dir, fasta)
 

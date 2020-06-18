@@ -142,7 +142,9 @@ with open(samples_file) as f:
          fastq_2_id = in_array[2]
          id_dict[sample]["fastq_dict"][replicate_key]["fastq_2"] = fastq_2_id
         
+print('id and sample dictionary:\n')
 print(id_dict)
+print('\n')
 
 
 ## == fastq object and alignment command ==
@@ -174,7 +176,6 @@ for sample in id_dict:
       time = cfg['time']
 
       qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + sample + '_alignment'
-
 
    
    if run_mode == 'cluster':

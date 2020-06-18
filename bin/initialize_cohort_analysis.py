@@ -138,10 +138,10 @@ with open(cohorts_file) as f:
       vcf_file = in_array[1]
         
       cohort_dict[cohort]['cohort-dict'][replicate_key] = vcf_file
-                                        
+
+print('cohort dictionary:\n')
 print(cohort_dict)
-
-
+print('\n')
 
 ## == vcf object ==
 

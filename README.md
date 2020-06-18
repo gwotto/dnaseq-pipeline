@@ -89,7 +89,12 @@ dnaseq-pipeline-manual.pdf
   only existing files are returned. If the pattern can not resolve
   to an existing file, the loop skips over it
 
-## Release
+## Release Notes
+
+* 0.1.3 (2020-06-18)
+  * fixed bug causing crash when running without scratch dir. Now has
+    separate temp directories for each sample, so processes dont
+    interfere with same temp directory.
 
 * 0.1.2
   * test on new cluster. interval list optional input for base

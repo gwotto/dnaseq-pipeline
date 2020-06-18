@@ -226,7 +226,10 @@ class Fastq:
         
         fasta_path = os.path.join(reference_dir, fasta)
 
-        mapper_tempdir = os.path.join(mapper_outdir, 'temp')
+        ## tempdir must be unique for sample in order to prevent
+        ## interference with other samples (when not scratchdir is
+        ## used
+        mapper_tempdir = os.path.join(mapper_outdir, (sample + '-temp'))
                     
         if not os.path.exists(mapper_tempdir):
             os.makedirs(mapper_tempdir)

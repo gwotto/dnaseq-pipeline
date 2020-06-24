@@ -340,7 +340,9 @@ class Bam:
         bam_outpath = os.path.join(bam_outdir, bam_outfile)
         
         bam_tempdir = os.path.join(bam_outdir, (sample + '-temp'))
-
+        ## tmp dir for MarkDuplicates
+        tmp_dir = os.path.join(bam_tempdir, 'tmp')
+        
         fasta_path = os.path.join(reference_dir, fasta)
 
         if not os.path.exists(bam_outdir):
@@ -349,6 +351,10 @@ class Bam:
             
         if not os.path.exists(bam_tempdir):
             os.makedirs(bam_tempdir)
+
+        if not os.path.exists(tmp_dir):
+            os.makedirs(tmp_dir)
+
 
         bam_temppath = os.path.join(bam_tempdir, sample + "_sambamba_1.bam")
 
@@ -374,7 +380,7 @@ class Bam:
 
         metrics_temppath = os.path.join(bam_tempdir, sample + "_metrics.bam")
     
-        picard_mark_duplicates_c = "MarkDuplicates I=" + bam_path + " O=" + bam_temppath + " M=" + metrics_temppath + " ASSUME_SORT_ORDER=queryname VERBOSITY=WARNING" 
+        picard_mark_duplicates_c = "MarkDuplicates I=" + bam_path + " O=" + bam_temppath + " M=" + metrics_temppath + " TMP_DIR=" + tmp_dir + " ASSUME_SORT_ORDER=queryname VERBOSITY=WARNING" 
 
         print("running MarkDuplicates")
         print(picard_mark_duplicates_c)

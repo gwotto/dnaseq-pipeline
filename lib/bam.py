@@ -607,8 +607,10 @@ class Bam:
         # print('deleting scratch directory ' + bam_dir)
         # shutil.rmtree(bam_dir)
 
-        ## output bam
+        ## remove recal file
+        os.remove(recal_outpath)
         
+        ## output bam
         bam_dict = {}
         bam_dict[bam_key] = bam_outfile
 

@@ -55,7 +55,7 @@ filter-string: '--filter-expression "ExcessHet > 54.69" --filter-name ExcessHet'
 ################################
 
 ## SGE job submission
-## sets tmem and h_vmem, maybe more (48G) when using star
+## sets tmem and h_vmem
 mem: 3G
 ## sets tscratch, reserving this amount of space on the scratch0
 ## set to low value in case scratch is False

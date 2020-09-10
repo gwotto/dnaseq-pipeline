@@ -147,19 +147,19 @@ print('\n')
 
 for cohort in cohort_dict:
     
-   vcf = vcf.Vcf(project = cohort,
+   vcf_obj = vcf.Vcf(project = cohort,
                  vcf_dict = cohort_dict[cohort]['cohort-dict'],
                  tbi_dict = {},
                  vcf_dir = vcf_dir)
 
-   vcf = vcf.index()
+   vcf_obj = vcf_obj.index()
    
    ## to make the file name unique
    tmp = uuid.uuid4().hex
    binary_file_name = cohort + '_' + tmp + '.pkl'
 
    binary_file = open(binary_file_name, mode = 'wb')
-   my_pickled_vcf = pickle.dump(vcf, binary_file)
+   my_pickled_vcf = pickle.dump(vcf_obj, binary_file)
    binary_file.close()
     
    print("\nInitialising job for cohort: " + cohort)
@@ -177,7 +177,7 @@ for cohort in cohort_dict:
 
    
    if run_mode == 'cluster':
-      print "\nrunning the pipeline on the sge queue"
+      print("\nrunning the pipeline on the sge queue")
 
       print('\nvariant calling command: ' + pipeline_command)
       
@@ -189,9 +189,8 @@ for cohort in cohort_dict:
 
       os.system(qsub_command)
 
-
    if run_mode == 'test':
-      print "\ndry run for tests"
+      print("\ndry run for tests")
 
       print('\nvariant calling command: ' + pipeline_command)
       
@@ -203,7 +202,7 @@ for cohort in cohort_dict:
 
       
    if run_mode == 'server':
-      print "\nrunning the pipeline as a subprocess on the server"
+      print("\nrunning the pipeline as a subprocess on the server")
 
       print('\nvariant calling command: ' + pipeline_command)
 

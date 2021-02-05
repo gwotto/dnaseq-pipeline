@@ -1,0 +1,99 @@
+\documentclass[border=0.5cm]{standalone}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes, shapes.misc, arrows, positioning}
+\usetikzlibrary{backgrounds,fit,calc}
+
+\begin{document}
+\pagestyle{empty}
+
+\tikzset{
+  background1/.style={
+    draw,
+    %fill=yellow!30,
+    align=left
+  }}
+
+
+%% block styles
+
+\tikzstyle{block} = [align = right]
+
+\tikzstyle{pipeblock} = [rectangle, draw=gray, fill=blue!10,
+minimum width=5em, text centered, rounded corners, minimum height=4em]
+
+\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
+
+\tikzstyle{fileblock} = [draw=gray, fill=gray!5, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
+
+\tikzstyle{line} = [draw, -latex']
+
+
+
+\begin{tikzpicture}
+
+  %% Draw nodes
+
+  % single vcf
+        
+  \node [pipeblock] (init) {initialize\_sample\_analysis.py};
+
+    \node [fileblock, left= of init] (config) {config.yml};
+
+  
+  \node [fileblock, right= of init] (samples) {\begin{tabular}{l l l}sample & fastq\_1 & fastq\_2\\
+      \hline                                             
+      sample-1 & file-1\_1 & file-1\_2\\
+      sample-1 & file-2\_1 & file-2\_2\\
+      sample-2 & file-3\_1 & file-3\_2 \\
+      \vdots & \vdots & \vdots \end{tabular}};
+
+    \node [pipeblock, below= of init] (pipeline2) {sample\_analysis.py};
+
+    \node [pipeblock, left= of pipeline2] (pipeline1) {sample\_analysis.py};
+
+    \node [pipeblock, right= of pipeline2] (pipeline3) {sample\_analysis.py};
+
+    \node [datablock, below= of pipeline1] (vcf1) {sample-1.vcf};
+    \node [datablock, below= of pipeline2] (vcf2) {sample-2.vcf};
+    \node [datablock, below= of pipeline3] (vcf3) {sample-3.vcf};
+
+    \path [line] (config) edge
+    (init);
+
+    \path [line] (samples) edge
+    (init);
+
+    \path [line] (init) edge
+    node[left, align=center](sample1) {sample-1}
+    (pipeline1);
+
+    \path [line] (init) edge
+    node[left, align=center](sample2) {sample-2}
+    (pipeline2);
+
+    \path [line] (init) edge
+    node[left, align=center](sample3) {sample-3}
+    (pipeline3);
+
+
+    \path [line] (pipeline1) edge
+    (vcf1);
+
+    \path [line] (pipeline2) edge
+    (vcf2);
+
+    \path [line] (pipeline3) edge
+    (vcf3);
+
+
+    
+  \end{tikzpicture}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

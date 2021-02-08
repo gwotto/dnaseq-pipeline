@@ -10,4 +10,8 @@
 /extra/*
 !/extra/*.tex
 !/extra/*.bib
-!/extra/*.pdf
+
+## ignore everything in doc except pdf files
+/doc/*
+!/doc/*.pdf
+

@@ -20,6 +20,15 @@
 \usepackage{parskip}
 % Rotation tools, including rotated full-page floats
 \usepackage{rotating}
+% Compile TeX pictures stand-alone or as part of a document
+\usepackage{standalone}
+
+
+\usepackage{tikz}
+
+\usetikzlibrary{shapes, shapes.misc, arrows, positioning}
+\usetikzlibrary{backgrounds,fit,calc}
+
 
 %% biblatex options
 \usepackage[style=nature,
@@ -105,7 +114,7 @@ variant recalibration and genotyping (\cref{fig:cohortAnalysis}).
 
 \begin{figure}
   \begin{center}
-    \includegraphics[scale=0.8]{fig-sample-analysis.pdf}
+    \includestandalone[scale=0.8]{fig-sample-analysis}
     \caption[sanple analysis]{Flowchart of sample analysis}
   \label{fig:sampleAnalysis}
 \end{center}
@@ -114,7 +123,7 @@ variant recalibration and genotyping (\cref{fig:cohortAnalysis}).
 
 \begin{figure}
   \begin{center}
-    \includegraphics[scale=0.8]{fig-cohort-analysis.pdf}
+    \includestandalone[scale=0.8]{fig-cohort-analysis}
     \caption[cohort analysis]{Flowchart of cohort analysis}
   \label{fig:cohortAnalysis}
 \end{center}
@@ -153,12 +162,20 @@ process on the server. This is exemplified in
 
 \begin{figure}
   \begin{center}
-    \includegraphics[scale=0.8]{fig-pipeline-structure.pdf}
-    \caption[cohort analysis]{Pipeline process deployment}
+    \includestandalone[scale=0.8]{fig-pipeline-structure-samples}
+    \caption[cohort analysis]{Pipeline process deployment, samples}
   \label{fig:pipelineProcess}
 \end{center}
 \end{figure}
 
+
+\begin{figure}
+  \begin{center}
+    \includestandalone[scale=0.8]{fig-pipeline-structure-cohort}
+    \caption[cohort analysis]{Pipeline process deployment, cohort}
+  \label{fig:pipelineProcess}
+\end{center}
+\end{figure}
 
 
 \paragraph{Use of scratch directory}

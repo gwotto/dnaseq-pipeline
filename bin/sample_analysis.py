@@ -15,6 +15,7 @@ import fastq
 
 program = os.path.basename(sys.argv[0])
 version = dnaseq.__version__()
+host = socket.gethostname()
 
 ## == parse import arguments ==
 parser = argparse.ArgumentParser(description='running dnaseq pipeline',
@@ -49,8 +50,10 @@ yml_file = args.config_file
 fastq_obj_file = args.fastq_obj_file
 run_mode = args.run_mode
 
-print('running ' + program + ' version ' + version)
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nProgram: ' + program)
+print('\nVersion: ' + version)
+print('\nHost: ' + host)
+print('\nStart time: ' + subprocess.check_output('date'))
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
@@ -147,7 +150,7 @@ if bool(scratchdir):
       os.makedirs(scratchdir)
 
 if run_mode == 'cluster':
-   print('User ' + user + ' running job ' + os.environ['JOB_NAME'] + ' with ID ' + os.environ['JOB_ID'] + ' on ' + os.environ['HOSTNAME'])
+   print('User ' + user + ' running job ' + os.environ['JOB_NAME'] + ' with ID ' + os.environ['JOB_ID'] + ' on ' + host)
 else:
    print('User ' + user + ' running sample ' + sample + ' on ' + os.uname()[1])
 
@@ -237,4 +240,4 @@ if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
 
-print('\nsample analysis finished at: ' + subprocess.check_output('date'))
+print('\nFinish time: ' + subprocess.check_output('date'))

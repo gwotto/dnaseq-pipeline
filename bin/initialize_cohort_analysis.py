@@ -39,9 +39,8 @@ parser.add_argument('-v', '--version',
 
 args = parser.parse_args()
 
-
-print('running ' + program + ' version ' + version)
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nProgram: ' + program)
+print('\nVersion: ' + version)
 
 ## get configurations from yaml file
 yml_file = args.config_file

@@ -41,8 +41,8 @@ args = parser.parse_args()
 ## run mode
 run_mode = args.run_mode
 
-print('running ' + program + ' version ' + version)
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nProgram: ' + program)
+print('\nVersion: ' + version)
 
 ## get configurations from yaml file
 yml_file = args.config_file
@@ -175,9 +175,8 @@ for sample in id_dict:
       tscratch = cfg['tscratch']
       time = cfg['time']
 
-      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + sample + '_alignment'
+      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',h_vmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + sample + '_alignment'
 
-   
    if run_mode == 'cluster':
       print('\nrunning the pipeline on the sge queue')
 

@@ -102,9 +102,7 @@ class Bam:
 
         ## only rums on one (first) key of bam dictionary if there are
         ## multiple keys
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
            
         bam_list = self.bamList()
 
@@ -244,11 +242,8 @@ class Bam:
         
         ## only rums on one (first) key of bam dictionary if there are
         ## multiple keys
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
 
-        
         bam_outfile = sample + ".bam"
         bam_outpath = os.path.join(bam_outdir, bam_outfile)
 
@@ -329,9 +324,7 @@ class Bam:
         bam_dict = self.bam_dict
 
         # only processes the first bam file if there are multiple
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
         
         bam_file = bam_dict[bam_key]
         bam_path = os.path.join(bam_dir, bam_file)
@@ -447,9 +440,7 @@ class Bam:
         print('\n***   base recalibration   ***\n')
 
         ## only runs on first replicate if there are multiple replicates
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
         
         bam_outfile = sample + ".bam"
         bam_outpath = os.path.join(outdir, bam_outfile)
@@ -547,9 +538,7 @@ class Bam:
         index_dict = self.index_dict
 
         ## only runs on first replicate if there are multiple replicates
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
         
         bam_file = bam_dict[bam_key]
         bam_path = os.path.join(bam_dir, bam_file)
@@ -650,9 +639,7 @@ class Bam:
 
         vcf_idx = vcf_outfile + ".tbi"
 
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
         
         if os.path.isfile(vcf_outpath):
             print("vcf output file " + vcf_outpath +
@@ -731,9 +718,7 @@ class Bam:
         bam_dict = self.bam_dict
 
         ## only runs on first replicate if there are multiple replicates
-        bam_key_list = bam_dict.keys()
-        bam_key_list.sort()
-        bam_key = bam_key_list[0]
+        bam_key = sorted(bam_dict)[0]
         
         bam_file = bam_dict[bam_key]
         bam_path = os.path.join(bam_dir, bam_file)

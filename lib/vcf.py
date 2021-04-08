@@ -284,9 +284,8 @@ class Vcf:
         # print(gatk_genomicsdbimport_c)
 
         # os.system(gatk_genomicsdbimport_c)
-
-	gatk_combinegvcfs_c = 'gatk CombineGVCFs -R ' + fasta_path + ' ' + input_string + ' -O ' + vcf_combined_temppath
-
+        gatk_combinegvcfs_c = 'gatk CombineGVCFs -R ' + fasta_path + ' ' + input_string + ' -O ' + vcf_combined_temppath
+        
         print("running GATK CombineGVCFs")
         print(gatk_combinegvcfs_c)
 
@@ -357,9 +356,7 @@ class Vcf:
         
         ## TODO
         ## only runs on first sample if there are multiple replicates
-        vcf_key_list = vcf_dict.keys()
-        vcf_key_list.sort()
-        vcf_key = vcf_key_list[0]
+        vcf_key = sorted(vcf_dict)[0]
 
         ## TODO better construct the vcf filename from input vcf object
         vcf_outfile = project + ".vcf.gz"
@@ -464,9 +461,7 @@ class Vcf:
 
         ## TODO
         ## only runs on first replicate if there are multiple replicates
-        vcf_key_list = vcf_dict.keys()
-        vcf_key_list.sort()
-        vcf_key = vcf_key_list[0]
+        vcf_key = sorted(vcf_dict)[0]
         
         vcf_file = vcf_dict[vcf_key]
         vcf_path = os.path.join(vcf_dir, vcf_file)

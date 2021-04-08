@@ -47,7 +47,7 @@ yml_file = args.config_file
 ## returns an open file handle
 yml_fh = open(yml_file, 'r')
 
-cfg = yaml.load(yml_fh)
+cfg = yaml.load(yml_fh, Loader=yaml.FullLoader)
 
 ## run mode
 run_mode = args.run_mode
@@ -172,9 +172,8 @@ for cohort in cohort_dict:
       tscratch = cfg['tscratch']
       time = cfg['time']
 
-      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + cohort + '_variant_calling'
+      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',h_vmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + cohort + '_variant_calling'
 
-   
    if run_mode == 'cluster':
       print("\nrunning the pipeline on the sge queue")
 

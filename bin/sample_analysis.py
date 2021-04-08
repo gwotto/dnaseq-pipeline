@@ -6,6 +6,7 @@ import pickle
 import subprocess
 import shutil
 import socket
+from datetime import datetime
 
 bindir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(bindir, "../lib/"))
@@ -53,11 +54,11 @@ run_mode = args.run_mode
 print('\nProgram: ' + program)
 print('\nVersion: ' + version)
 print('\nHost: ' + host)
-print('\nStart time: ' + subprocess.check_output('date'))
+print('\nStart time: ' + datetime.now())
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
-cfg = yaml.load(yml_fh)
+cfg = yaml.load(yml_fh, Loader=yaml.FullLoader)
 
 outdir = cfg['outdir']
 mapper = cfg['mapper']
@@ -114,7 +115,7 @@ if run_mode == 'test' and modules: ## or run_mode == 'server':
 ## == fastq object ==
 
 ## load fastq object
-fastq_obj = pickle.load(open(fastq_obj_file))
+fastq_obj = pickle.load(open(fastq_obj_file, 'rb'))
 
 ## remove fastq object file, unless we are in test mode
 if not run_mode == 'test':
@@ -160,7 +161,7 @@ else:
 fastqc_outdir = os.path.join(outdir, 'fastqc')
 
 print('\ninitializing fastqc quality control...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 fastq_obj.runFastqc(fastqc_outdir = fastqc_outdir, scratchdir = scratchdir)
 
@@ -172,7 +173,7 @@ bam_outdir = os.path.join(outdir, 'mapped-raw')
 if mapper == "bwa":
 
     print('\ninitializing read alignment...')
-    print('\nstarting at: ' + subprocess.check_output('date'))
+    print('\nstarting at: ' + datetime.now())
 
     ## TODO try to catch errors
     mapper_options=cfg['mapper-options']
@@ -186,7 +187,7 @@ if mapper == "bwa":
 ## == processing ==
 
 print('\ninitializing bam processing...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 processed_outdir = os.path.join(outdir, 'mapped-processed')
 
@@ -198,7 +199,7 @@ bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
 ## == base calibration ==
 
 print('\ninitializing base calibration...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 calibrated_outdir = os.path.join(outdir, 'mapped-calibrated')
 
@@ -215,7 +216,7 @@ bam_obj = bam_obj.runCalibrate(outdir = calibrated_outdir,
 ## == variant calling ==
 
 print('\ninitializing variant calling...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 vcf_outdir = os.path.join(outdir, 'variants-raw')
 
@@ -240,4 +241,4 @@ if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
 
-print('\nFinish time: ' + subprocess.check_output('date'))
+print('\nFinish time: ' + datetime.now())

@@ -25,7 +25,7 @@ class Fastqc:
     def __init__(self, sample, fastqc_file_list, fastqc_dir):
         self.sample = sample
         ## problem: how to construct this list
-	self.fastqc_file_list = fastqc_file_list
+        self.fastqc_file_list = fastqc_file_list
         self.fastqc_dir = fastqc_dir
 
     ## TODO dictionary  instead of file list

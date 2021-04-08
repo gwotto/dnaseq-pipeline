@@ -46,19 +46,36 @@ dnaseq-pipeline-manual.pdf
 
 ## Questions/Discussion points
 
-* The alignment part of the pipeline follows the standardisation effort of https://github.com/CCDG/Pipeline-Standardization/blob/master/PipelineStandard.md
+* Potential conflicts can arise when there are multiple environment
+  modules with the same name in different locations. To make sure to
+  load right environment modules on the run node, set $MODULEPATH in
+  the login node, and use qsub with the -V option, to pass the
+  environment to the run nodes.
 
-* picard MarkDuplicates is used instead of sambamba, because picard shows a slightly different behaviour (is this relevant to us?) (reference?)
+* The alignment part of the pipeline follows the standardisation
+  effort of
+  https://github.com/CCDG/Pipeline-Standardization/blob/master/PipelineStandard.md
 
-* why are the bam files sorted twice (sambamba sort -> Picard MarkDuplicates -> sambamba sort)? first time is name sort, second time is query sort
+* picard MarkDuplicates is used instead of sambamba, because picard
+  shows a slightly different behaviour (is this relevant to us?)
+  (reference?)
 
-* bwa use of the hidden -K option to seed seed for deterministic mapping
+* why are the bam files sorted twice (sambamba sort -> Picard
+  MarkDuplicates -> sambamba sort)? first time is name sort, second
+  time is query sort
 
-* The variant calling part of the pipeline follows GATK best practices: https://github.com/gatk-workflows/broad-prod-wgs-germline-snps-indels/blob/master/PairedEndSingleSampleWf.wdl
+* bwa use of the hidden -K option to seed seed for deterministic
+  mapping
+
+* The variant calling part of the pipeline follows GATK best
+  practices:
+  https://github.com/gatk-workflows/broad-prod-wgs-germline-snps-indels/blob/master/PairedEndSingleSampleWf.wdl
 
 * output of HaplotypeCaller is GVCF format
 
-* interval lists are optional input, used in base calibration, variant calling, combining and genotyping vcfs, but not used in variant recalibration.
+* interval lists are optional input, used in base calibration, variant
+  calling, combining and genotyping vcfs, but not used in variant
+  recalibration.
 
 * vcf calibration with chr19 test data gives error
 
@@ -71,26 +88,23 @@ dnaseq-pipeline-manual.pdf
 
 ## Bugs
 
-* avoid race condition when executing makedirs in multiple threads, see
+* avoid race condition when executing makedirs in multiple threads,
+  see
   https://stackoverflow.com/questions/42544885/error-when-mkdir-in-multi-threads-in-python
-  and
-  http://deepix.github.io/2017/02/02/eexists.html
+  and http://deepix.github.io/2017/02/02/eexists.html
 
 * when a process is started repeatedly for the same sample and there
   is a lockfile, the error message overwrites the log file
   
-* temp file problem when running without scratch: there is only one
-  temp file directory for all temp files in the bwa step (but possibly
-  also in other steps, e.g. the process step). The temp directory gets
-  deleted when one sample finishes, together with the temp files of
-  the other samples.
-
-* globbing of reference files in Ref.copy:
-  only existing files are returned. If the pattern can not resolve
-  to an existing file, the loop skips over it
+* globbing of reference files in Ref.copy: only existing files are
+  returned. If the pattern can not resolve to an existing file, the
+  loop skips over it, without error message
 
 ## Release Notes
 
+* devel
+  * To test: pipeline running with python 3.6 now
+	
 * 0.1.3 (2020-06-18)
   * fixed bug causing crash when running without scratch dir. Now has
     separate temp directories for each sample, so processes dont

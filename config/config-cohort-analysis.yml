@@ -80,4 +80,4 @@ module-lib: /share/apps/cto/modulefiles
 ## on the cumputer science cluster
 module-init: /usr/share/lmod/lmod/init/env_modules_python.py
 
-module-list: python/2.7.8, gatk/4.1.4.1, R/3.6.1, picard-tools/2.21.8
+module-list: python/3.6.1, gatk/4.1.4.1, R/3.6.1, picard-tools/2.21.8

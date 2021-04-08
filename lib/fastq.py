@@ -80,11 +80,9 @@ class Fastq:
         
         fastq_dict = self.fastq_dict
 
-        rep_keys = fastq_dict.keys()
-        list.sort(rep_keys)
+        rep_keys = sorted(fastq_dict)
         
-        fastq_keys = fastq_dict[rep_keys[0]].keys()
-        list.sort(fastq_keys)
+        fastq_keys = sorted(fastq_dict[rep_keys[0]])
         
         fastq_rep_list = []
         
@@ -151,10 +149,8 @@ class Fastq:
         if os.path.isfile(mapper_outpath):
             print("bwa output file " + mapper_outpath + " exists, skipped running bwa")
 
-            rep_key_list = fastq_dict.keys()
-            rep_key_list.sort()
-            rep_key = rep_key_list[0]
-
+            ## get the first of the sorted keys
+            rep_key = sorted(fastq_dict)[0]
             bam_dict = {}
             bam_dict[rep_key] = mapper_outfile
 
@@ -236,8 +232,7 @@ class Fastq:
             
         bam_dict = {}
 
-        rep_key_list = fastq_dict.keys()
-        list.sort(rep_key_list)
+        rep_key_list = sorted(fastq_dict)
         
         for rep in rep_key_list:
 

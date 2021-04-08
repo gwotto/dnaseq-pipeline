@@ -6,6 +6,7 @@ import pickle
 import subprocess
 import shutil
 import socket
+from datetime import datetime
 
 bindir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(bindir, "../lib/"))
@@ -53,11 +54,11 @@ run_mode = args.run_mode
 print('\nProgram: ' + program)
 print('\nVersion: ' + version)
 print('\nHost: ' + host)
-print('\nStart time: ' + subprocess.check_output('date'))
+print('\nStart time: ' + datetime.now())
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
-cfg = yaml.load(yml_fh)
+cfg = yaml.load(yml_fh, Loader=yaml.FullLoader)
 
 outdir = cfg['outdir']
 
@@ -116,7 +117,7 @@ if run_mode == 'test' and modules: ## or run_mode == 'server':
 ## == vcf object ==
 
 ## load vcf object
-vcf_obj = pickle.load(open(vcf_obj_file))
+vcf_obj = pickle.load(open(vcf_obj_file, 'rb'))
 
 ## remove vcf object file, unless we are in test mode
 if not run_mode == 'test':
@@ -165,7 +166,7 @@ from pprint import pprint
 pprint(vcf_obj.vcf_dict)
 
 print('\ninitializing combining and genotyping vcf files...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
                               reference_dir = reference_dir,
@@ -181,7 +182,7 @@ vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
 calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
 print('\ninitializing variant calibration...')
-print('\nstarting at: ' + subprocess.check_output('date'))
+print('\nstarting at: ' + datetime.now())
 
 vcf_obj = vcf_obj.runCalibrate(outdir = calibrated_outdir,
                                reference_dir = reference_dir,
@@ -206,4 +207,4 @@ if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
 
-print('\nFinish time: ' + subprocess.check_output('date'))
+print('\nFinish time: ' + datetime.now())

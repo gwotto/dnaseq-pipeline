@@ -7,7 +7,7 @@ import filecmp
 import re
 
 def __version__():
-    version = 'v0.1.3'
+    version = 'v0.1.4'
     return(version)
 
 class Vividict(dict):
@@ -42,7 +42,7 @@ def dictRecurse(dictionary, f, **args):
     """
     
     new = {}
-    for k, v in dictionary.iteritems():
+    for k, v in dictionary.items():
         if isinstance(v, dict):
             new[k] = dictRecurse(dictionary = v, f = f, **args)
         elif not (v == ''):

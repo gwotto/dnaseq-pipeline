@@ -81,4 +81,4 @@ module-lib: /share/apps/cto/modulefiles
 ## on the cumputer science cluster
 module-init: /usr/share/lmod/lmod/init/env_modules_python.py
 
-module-list: python/2.7.8, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.21.8,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.1.4.1, R/3.6.1
+module-list: python/3.6.1, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.21.8,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.1.4.1, R/3.6.1

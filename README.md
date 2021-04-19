@@ -1,50 +1,10 @@
-# The GOSgene DNA-seq processing pipeline
+# The GOSgene DNA-seq processing pipeline #
 
 
 For a tutorial how to use this software, please consult the manual:
 dnaseq-pipeline-manual.pdf
 
-## TODOs
-
-* optimise for scratch directory use, scratch directory use as the default
-
-* Output files with discordant and split reads. This is needed by the
-  lumpy SV detection software and can be achieved by samblaster in two
-  ways. See also the [samblaster github
-  page](https://github.com/GregoryFaust/samblaster).
-
-  
-  1. During the original alignment step
-  
-  ```sh
-    bwa mem <idxbase> samp.r1.fq samp.r2.fq | samblaster -e -d samp.disc.sam -s samp.split.sam | samtools view -Sb - > samp.out.bam
-	
-  ```
-
-  2. Pulling from a pre-existing BAM-file
-
-  ```sh
-    samtools view -h samp.bam | samblaster -a -e -d samp.disc.sam -s samp.split.sam -o /dev/null
-  ```
-    
-* checking if programs used are in path
-
-* configuration
-  * bed file location
-  * scratch directory True/False
-  * modules True/False
-  * paired end true false
-
-* reference versioning
-  to read cram files, the reference is needed, so it should be stored safely
-	
-* object serialization and persistence of config file
-
-* x and y chromosome
-
-* option --annotation-group for GenotypeGVCFs
-
-## Questions/Discussion points
+## Questions/Discussion points ##
 
 * Potential conflicts can arise when there are multiple environment
   modules with the same name in different locations. To make sure to
@@ -86,7 +46,48 @@ dnaseq-pipeline-manual.pdf
   Is this because the sample size is small and the samples are small?
 
 
-## Bugs
+## TODOs ##
+
+* optimise for scratch directory use, scratch directory use as the default
+
+* Output files with discordant and split reads. This is needed by the
+  lumpy SV detection software and can be achieved by samblaster in two
+  ways. See also the [samblaster github
+  page](https://github.com/GregoryFaust/samblaster).
+
+  
+  1. During the original alignment step
+  
+  ```sh
+    bwa mem <idxbase> samp.r1.fq samp.r2.fq | samblaster -e -d samp.disc.sam -s samp.split.sam | samtools view -Sb - > samp.out.bam
+	
+  ```
+
+  2. Pulling from a pre-existing BAM-file
+
+  ```sh
+    samtools view -h samp.bam | samblaster -a -e -d samp.disc.sam -s samp.split.sam -o /dev/null
+  ```
+    
+* checking if programs used are in path
+
+* configuration
+  * bed file location
+  * scratch directory True/False
+  * modules True/False
+  * paired end true false
+
+* reference versioning
+  to read cram files, the reference is needed, so it should be stored safely
+	
+* object serialization and persistence of config file
+
+* x and y chromosome
+
+* option --annotation-group for GenotypeGVCFs
+
+
+## Bugs ##
 
 * avoid race condition when executing makedirs in multiple threads,
   see
@@ -98,9 +99,9 @@ dnaseq-pipeline-manual.pdf
   
 * globbing of reference files in Ref.copy: only existing files are
   returned. If the pattern can not resolve to an existing file, the
-  loop skips over it, without error message
+  loop skips over it, without error messa
 
-## Release Notes
+## Release Notes ##
 
 * devel
   * To test: pipeline running with python 3.6 now

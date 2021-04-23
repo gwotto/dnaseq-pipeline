@@ -18,14 +18,11 @@
 
 %% block styles
 
-\tikzstyle{block} = [align = right]
-
-\tikzstyle{pipeblock} = [rectangle, draw=gray, fill=blue!10,
+\tikzstyle{processblock} = [rectangle, draw=gray, fill=blue!5,
 minimum width=5em, text centered, rounded corners, minimum height=4em]
 
 \tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
 
-\tikzstyle{fileblock} = [draw=gray, fill=gray!5, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
 
 \tikzstyle{line} = [draw, -latex']
 
@@ -35,46 +32,23 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
 
   %% Draw nodes
 
-  % single vcf
-        
-  \node [datablock] (vcf2a) {sample-2.vcf};
-
-  \node [datablock, left=of vcf2a] (vcf1a) {sample-1.vcf};
-
-  \node [datablock, right=of vcf2a] (vcf3a) {sample-3.vcf};
   
-  \node [pipeblock, below= of vcf2a] (init) {initialize\_cohort\_analysis.py};
-  % \node [block] (init) {initialize\_cohort\_analysis.py};
+  \node [processblock] (init) {initialize\_cohort\_analysis.py};
 
-    \node [fileblock, left= of init] (config) {config.yml};
+    \node [datablock, left= of init] (config) {config.yml};
 
-  
-  \node [fileblock, right= of init] (samples) {\begin{tabular}{l l}cohort & sample \\
+  \node [datablock, right= of init] (samples) {\begin{tabular}{l l}cohort & sample \\
       \hline                                             
       cohort-1 & sample-1 \\
       cohort-1 & sample-2 \\
       cohort-2 & sample-3 \\
     \vdots & \vdots\end{tabular}};
 
-    \node [pipeblock, below= of init] (pipeline2) {cohort\_analysis.py};
+    \node [processblock, below= of init] (pipeline2) {cohort\_analysis.py};
 
-    \node [pipeblock, left= of pipeline2] (pipeline1) {cohort\_analysis.py};
+    \node [processblock, left= of pipeline2] (pipeline1) {cohort\_analysis.py};
 
-    \node [pipeblock, right= of pipeline2] (pipeline3) {cohort\_analysis.py};
-
-    \node [datablock, below= of pipeline1] (vcf1b) {cohort-1.vcf};
-    \node [datablock, below= of pipeline2] (vcf2b) {cohort-2.vcf};
-    \node [datablock, below= of pipeline3] (vcf3b) {cohort-3.vcf};
-
-
-    \path [line] (vcf1a) edge
-    (init);
-
-    \path [line] (vcf2a) edge
-    (init);
-
-    \path [line] (vcf3a) edge
-    (init);
+    \node [processblock, right= of pipeline2] (pipeline3) {cohort\_analysis.py};
 
 
     
@@ -95,17 +69,6 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
     \path [line] (init) edge
     node[left, align=center](cohort3) {cohort-3}
     (pipeline3);
-
-
-    \path [line] (pipeline1) edge
-    (vcf1b);
-
-    \path [line] (pipeline2) edge
-    (vcf2b);
-
-    \path [line] (pipeline3) edge
-    (vcf3b);
-
 
     
   \end{tikzpicture}

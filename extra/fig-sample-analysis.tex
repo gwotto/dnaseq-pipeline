@@ -19,12 +19,21 @@
 %% block styles
 \tikzstyle{block} = [rectangle, draw=gray, fill=gray!40,
 minimum width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{inputblock} = [rectangle, draw=blue, fill=blue!30,  
-text width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{outputblock} = [rectangle, draw=orange, fill=orange!30, 
+
+\tikzstyle{inputblock} = [rectangle, draw=gray, fill=blue!20,  
+ text width=5em, text centered, rounded corners, minimum height=4em]
+
+\tikzstyle{outputblock} = [rectangle, draw=gray, fill=blue!20,  
+ text width=5em, text centered, rounded corners, minimum height=4em]
+ 
+\tikzstyle{titleblock} = [align = right]
+
+\tikzstyle{pipeblock} = [rectangle, draw=gray, fill=blue!5,
 minimum width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{pipeblock} = [align = right]
-\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=4em]
+
+\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
+
+\tikzstyle{fileblock} = [draw=gray, fill=gray!5, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
 
 
 \tikzstyle{line} = [draw, -latex']
@@ -52,19 +61,19 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
     
     \node [inputblock, right= of reference] (fastq) {fastq};
 
-    \node [block, below= of fastq] (bam1) {.bam file};
+    \node [pipeblock, below= of fastq] (bam1) {.bam file};
 
-    \node [block, below= of bam1, align=center] (bam2) {processed \\ .bam file};    
+    \node [pipeblock, below= of bam1, align=center] (bam2) {processed \\ .bam file};    
 
-    \node [outputblock, right= of fastq] (rawReadsQc) {reads QC};
+    \node [datablock, right= of fastq] (rawReadsQc) {reads QC};
 
-    \node [outputblock, right= of bam2] (recal) { recalibration table };
+    \node [datablock, right= of bam2] (recal) { recalibration table };
 
-    \node [block, below= of bam2, align=center] (bam3) { calibrated \\ .bam file };
+    \node [pipeblock, below= of bam2, align=center] (bam3) { calibrated \\ .bam file };
 
-    \node [block, below= of bam3] (vcf1) { .gvcf file };
+    \node [outputblock, below= of bam3] (vcf1) { .gvcf file };
 
-    \node [pipeblock, left= of vcf1, xshift = 0cm] (alignment) {sample analysis pipeline};
+    \node [titleblock, left= of vcf1, xshift = 0cm] (alignment) {sample analysis pipeline};
 
 
 
@@ -115,7 +124,7 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
 
     \begin{pgfonlayer}{background}
       \path [use as bounding box] (current bounding box.north west) (current bounding box.south east); % Freeze current bounding box
-      \node [fit={\extendnode{reference} (vcf1)}, background1] {};
+      \node [fit={\extendnode{fastq} (vcf1)}, background1] {};
   \end{pgfonlayer}
 
 \end{tikzpicture}

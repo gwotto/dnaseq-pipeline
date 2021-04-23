@@ -17,14 +17,18 @@
 
 
 %% block styles
-\tikzstyle{block} = [rectangle, draw=gray, fill=gray!40,
+\tikzstyle{inputblock} = [rectangle, draw=gray, fill=blue!20,  
+ text width=5em, text centered, rounded corners, minimum height=4em]
+
+\tikzstyle{outputblock} = [rectangle, draw=gray, fill=blue!20,  
+ text width=5em, text centered, rounded corners, minimum height=4em]
+ 
+\tikzstyle{titleblock} = [align = right]
+
+\tikzstyle{pipeblock} = [rectangle, draw=gray, fill=blue!5,
 minimum width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{inputblock} = [rectangle, draw=blue, fill=blue!30,  
-text width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{outputblock} = [rectangle, draw=orange, fill=orange!30, 
-minimum width=5em, text centered, rounded corners, minimum height=4em]
-\tikzstyle{pipeblock} = [align = right]
-\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=4em]
+
+\tikzstyle{datablock} = [draw=gray, chamfered rectangle, chamfered rectangle corners=north east, minimum height=2em]
 
 
 \tikzstyle{line} = [draw, -latex']
@@ -52,13 +56,13 @@ minimum width=5em, text centered, rounded corners, minimum height=4em]
 
     \node [inputblock, right= of vcf3, xshift=-2cm] (vcf4) {.gvcf file};
 
-    \node [block, below=  of vcf3] (vcfMerge) {merged .vcf};
+    \node [pipeblock, below=  of vcf3] (vcfMerge) {merged .vcf};
 
-    \node [block, below=  of vcfMerge] (vcfJoint) {genotyped .vcf};
+    \node [pipeblock, below=  of vcfMerge] (vcfJoint) {genotyped .vcf};
 
-    \node [block, below=  of vcfJoint] (vcfCal) {calibrated .vcf};
+    \node [outputblock, below=  of vcfJoint] (vcfCal) {calibrated .vcf};
 
-    \node [pipeblock, left= of vcfCal, xshift = 0cm] (alignment) {cohort analysis pipeline};
+    \node [titleblock, left= of vcfCal, xshift = 0cm] (alignment) {cohort analysis pipeline};
 
 
     %% Draw edges

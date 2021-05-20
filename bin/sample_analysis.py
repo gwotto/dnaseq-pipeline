@@ -54,7 +54,7 @@ run_mode = args.run_mode
 print('\nProgram: ' + program)
 print('\nVersion: ' + version)
 print('\nHost: ' + host)
-print('\nStart time: ' + datetime.now())
+print('\nStart time: ' + str(datetime.now()))
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
@@ -161,7 +161,7 @@ else:
 fastqc_outdir = os.path.join(outdir, 'fastqc')
 
 print('\ninitializing fastqc quality control...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 fastq_obj.runFastqc(fastqc_outdir = fastqc_outdir, scratchdir = scratchdir)
 
@@ -173,7 +173,7 @@ bam_outdir = os.path.join(outdir, 'mapped-raw')
 if mapper == "bwa":
 
     print('\ninitializing read alignment...')
-    print('\nstarting at: ' + datetime.now())
+    print('\nstarting at: ' + str(datetime.now()))
 
     ## TODO try to catch errors
     mapper_options=cfg['mapper-options']
@@ -187,7 +187,7 @@ if mapper == "bwa":
 ## == processing ==
 
 print('\ninitializing bam processing...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 processed_outdir = os.path.join(outdir, 'mapped-processed')
 
@@ -199,7 +199,7 @@ bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
 ## == base calibration ==
 
 print('\ninitializing base calibration...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 calibrated_outdir = os.path.join(outdir, 'mapped-calibrated')
 
@@ -216,7 +216,7 @@ bam_obj = bam_obj.runCalibrate(outdir = calibrated_outdir,
 ## == variant calling ==
 
 print('\ninitializing variant calling...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 vcf_outdir = os.path.join(outdir, 'variants-raw')
 
@@ -241,4 +241,4 @@ if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
 
-print('\nFinish time: ' + datetime.now())
+print('\nFinish time: ' + str(datetime.now()))

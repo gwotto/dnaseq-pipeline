@@ -54,7 +54,7 @@ run_mode = args.run_mode
 print('\nProgram: ' + program)
 print('\nVersion: ' + version)
 print('\nHost: ' + host)
-print('\nStart time: ' + datetime.now())
+print('\nStart time: ' + str(datetime.now()))
 
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
@@ -166,7 +166,7 @@ from pprint import pprint
 pprint(vcf_obj.vcf_dict)
 
 print('\ninitializing combining and genotyping vcf files...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
                               reference_dir = reference_dir,
@@ -182,7 +182,7 @@ vcf_obj = vcf_obj.runGenotype(outdir = geno_outdir,
 calibrated_outdir = os.path.join(outdir, 'variants-calibrated')
 
 print('\ninitializing variant calibration...')
-print('\nstarting at: ' + datetime.now())
+print('\nstarting at: ' + str(datetime.now()))
 
 vcf_obj = vcf_obj.runCalibrate(outdir = calibrated_outdir,
                                reference_dir = reference_dir,
@@ -207,4 +207,4 @@ if os.path.isfile(lfile_path):
    print('deleting lock file ' + lfile_path)
    os.remove(lfile_path)
 
-print('\nFinish time: ' + datetime.now())
+print('\nFinish time: ' + str(datetime.now()))

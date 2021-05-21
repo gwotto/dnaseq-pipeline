@@ -293,7 +293,7 @@ class Fastq:
             
         elif (len(b_obj.bamList()) == 1):
 
-            k = b_obj.bam_dict.keys()[0]
+            k = sorted(b_obj.bam_dict)[0]
             bam_path = os.path.join(b_obj.bam_dir, b_obj.bam_dict[k])
             bam_outfile = sample + ".bam"
             bam_outpath = os.path.join(mapper_outdir, bam_outfile)

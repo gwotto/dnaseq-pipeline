@@ -48,6 +48,8 @@ dnaseq-pipeline-manual.pdf
 
 ## TODOs ##
 
+* Include QC step, e.g. picard CollectMultipleMetrics
+
 * optimise for scratch directory use, scratch directory use as the default
 
 * Output files with discordant and split reads. This is needed by the
@@ -103,8 +105,8 @@ dnaseq-pipeline-manual.pdf
 
 ## Release Notes ##
 
-* devel
-  * To test: pipeline running with python 3.6 now
+* 0.1.4
+  * pipeline running with python 3.6 now
 	
 * 0.1.3 (2020-06-18)
   * fixed bug causing crash when running without scratch dir. Now has

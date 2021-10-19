@@ -56,6 +56,13 @@ print('\nVersion: ' + version)
 print('\nHost: ' + host)
 print('\nStart time: ' + str(datetime.now()))
 
+
+## to debug
+free_mem = subprocess.run(['free', '-h'], stdout=subprocess.PIPE)
+print('\nMemory on server:\n')
+print(free_mem.stdout.decode('utf-8'))
+
+
 ## == configurations from yaml file ==
 yml_fh = open(yml_file, 'r')  # return an open file handle
 cfg = yaml.load(yml_fh, Loader=yaml.FullLoader)
@@ -191,7 +198,10 @@ print('\nstarting at: ' + str(datetime.now()))
 
 processed_outdir = os.path.join(outdir, 'mapped-processed')
 
+picard_outdir = os.path.join(outdir, 'picard')
+
 bam_obj = bam_obj.runProcess(bam_outdir = processed_outdir,
+                             picard_outdir = picard_outdir,
                              scratchdir = scratchdir,
                              reference_dir = reference_dir,
                              fasta = fasta)

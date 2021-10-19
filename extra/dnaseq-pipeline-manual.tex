@@ -462,6 +462,29 @@ The command line options are:
 \end{description}
 
 
+\subsection{Tests}
+\label{sec:tests}
+
+The pipeline comes with a set of test data , i.e. fastq files with a
+small number of reads and reference files, which are located in the
+\texttt{data} directory. The \texttt{test} directory contains a number
+of test scripts to test pipeline functionality with the test
+data. Most of these test scripts are ``Self-contained'', i.e. do not
+need a configuration file.
+
+\begin{description}
+\item[test-sample-analysis.py] test that runs the sample analysis with test data, sample-1.
+  \begin{verbatim}
+test-sample-analysis.py
+\end{verbatim}
+\end{description}
+
+To test a pipeline run on the cluster, the pipeline can be run with
+the test data and the configuration file configured appropriatedly.
+  
+
+
+
 
 
 \section{Getting help}
@@ -488,11 +511,6 @@ help(fastq.Fastq)
 help(fastq.Fastq.fastqList)
 \end{verbatim}
 
-
-\subsection{Tests}
-\label{sec:tests}
-
-How to run tests
 
 
 \printbibliography

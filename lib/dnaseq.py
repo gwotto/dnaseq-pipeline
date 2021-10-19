@@ -7,7 +7,7 @@ import filecmp
 import re
 
 def __version__():
-    version = 'v0.1.4'
+    version = 'v0.1.5'
     return(version)
 
 class Vividict(dict):

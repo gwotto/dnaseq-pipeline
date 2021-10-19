@@ -4,6 +4,8 @@ import pickle
 
 from pprint import pprint
 
+## runs with python 3.6
+
 ## bindir = os.path.dirname(os.path.realpath(__file__))
 
 bin_dir = os.path.dirname(os.path.realpath(__file__))
@@ -19,10 +21,10 @@ import fastq
 import bam
 
 ## get module environment working
-## on ubuntu
-execfile('/usr/share/modules/init/python.py')
 ## on centos
-## execfile('/usr/share/Modules/init/python.py')
+exec(open('/usr/share/lmod/lmod/init/env_modules_python.py').read())
+## on andrey (ubuntu)
+## exec(open('/usr/share/modules/init/python.py').read())
 
 print("testing version " + dnaseq.__version__())
 
@@ -91,9 +93,11 @@ b_obj = fastq_obj.runAlign(mapper_outdir = mapper_outdir,
 
 processed_outdir = os.path.join(outdir, 'bam-processed')
 
+picard_outdir = os.path.join(outdir, 'picard')
 # sambamba_options = '-n'
 
-b_obj = b_obj.runProcess(bam_outdir = processed_outdir, scratchdir = scratchdir,
+b_obj = b_obj.runProcess(bam_outdir = processed_outdir, scratchdir =
+                         scratchdir, picard_outdir = picard_outdir,
                          reference_dir = reference_dir, fasta = fasta)
 
 pprint(b_obj.bam_dict)

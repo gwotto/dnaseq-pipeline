@@ -278,7 +278,7 @@ class Vcf:
         # ## TODO test: db_dirpath must not exist
         # db_dirpath = os.path.join(outdir, db_dir)
     
-        # gatk_genomicsdbimport_c = 'gatk --java-options "-Xmx4g -Xms4g" GenomicsDBImport -verbosity=WARNING ' + input_string + ' --genomicsdb-workspace-path ' + db_dirpath + interval_option
+        # gatk_genomicsdbimport_c = 'gatk --java-options "-Xmx4g -Xms4g" GenomicsDBImport --verbosity WARNING ' + input_string + ' --genomicsdb-workspace-path ' + db_dirpath + interval_option
 
         # print("running GATK GenomicsDBImport")
         # print(gatk_genomicsdbimport_c)
@@ -292,7 +292,7 @@ class Vcf:
         os.system(gatk_combinegvcfs_c)
         
         ## now run genotype
-        gatk_genotypegvcf_c = 'gatk GenotypeGVCFs -verbosity=WARNING -R ' + fasta_path + ' -V ' + vcf_combined_temppath + ' -G StandardAnnotation --use-new-qual-calculator -O ' + vcf_geno_temppath
+        gatk_genotypegvcf_c = 'gatk GenotypeGVCFs --verbosity WARNING -R ' + fasta_path + ' -V ' + vcf_combined_temppath + ' -G StandardAnnotation --use-new-qual-calculator -O ' + vcf_geno_temppath
         
         print("running GATK GenotypeGVCFs")
         print(gatk_genotypegvcf_c)
@@ -508,7 +508,7 @@ class Vcf:
         ## interpolates {refdir} to the valye of ref_dir
         snp_resource_string = snp_resource_string.format(refdir = reference_dir)
         
-        gatk_snprecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + snp_cal_temppath + ' ' + snp_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode SNP --tranches-file ' + snp_tranches_outpath + ' --rscript-file ' +  snp_rscript_outpath
+        gatk_snprecalibrator_c = 'gatk VariantRecalibrator --verbosity WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + snp_cal_temppath + ' ' + snp_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode SNP --tranches-file ' + snp_tranches_outpath + ' --rscript-file ' +  snp_rscript_outpath
         
         print("running GATK VariantRecalibrator with SNPs")
         print(gatk_snprecalibrator_c)
@@ -532,7 +532,7 @@ class Vcf:
         ## interpolates {refdir} to the valye of ref_dir
         indel_resource_string = indel_resource_string.format(refdir = reference_dir)
         
-        gatk_indelrecalibrator_c = 'gatk VariantRecalibrator --verbosity=WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + indel_cal_temppath + ' ' + indel_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode INDEL --tranches-file ' + indel_tranches_outpath + ' --rscript-file ' +  indel_rscript_outpath
+        gatk_indelrecalibrator_c = 'gatk VariantRecalibrator --verbosity WARNING -R '  + fasta_path + ' -V ' + vcf_path + ' -O ' + indel_cal_temppath + ' ' + indel_resource_string + ' -an QD -an MQ -an MQRankSum -an ReadPosRankSum -an FS -an SOR -mode INDEL --tranches-file ' + indel_tranches_outpath + ' --rscript-file ' +  indel_rscript_outpath
         
         print("running GATK VariantRecalibrator with Indels")
         print(gatk_indelrecalibrator_c)

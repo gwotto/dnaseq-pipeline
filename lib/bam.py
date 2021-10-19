@@ -213,7 +213,7 @@ class Bam:
 
 
 
-    def runProcess(self, bam_outdir, reference_dir, fasta, scratchdir):
+    def runProcess(self, bam_outdir, picard_outdir, reference_dir, fasta, scratchdir):
 
 
         ## TODO adjusting for object with multiple bam files
@@ -233,7 +233,6 @@ class Bam:
         ## 5. then the results are coordinate sorted using `sambamba
         ## sort`.
 
-        
         sample = self.sample
         bam_dir = self.bam_dir
         bam_dict = self.bam_dict
@@ -272,6 +271,9 @@ class Bam:
             if not os.path.exists(bam_outdir):
                 os.makedirs(bam_outdir)
 
+            if not os.path.exists(picard_outdir):
+                os.makedirs(picard_outdir)
+                
             reference_files = [fasta]
             
             ref1 = ref.Ref(reference_dir = reference_dir,
@@ -297,7 +299,7 @@ class Bam:
                 processed_scratchdir = dnaseq.createScratchDir(scratchdir = scratchdir,
                                                                source_dir = bam_outdir)
 
-                b_obj = b_obj.process(bam_outdir = processed_scratchdir,
+                b_obj = b_obj.process(bam_outdir = processed_scratchdir, picard_outdir = picard_outdir,
                                       reference_dir = reference_dir, fasta = fasta)
 
                 ## currently, the input bam file is deleted by the process function
@@ -311,13 +313,13 @@ class Bam:
 
             else:
 
-                b_obj = self.process(bam_outdir = bam_outdir,
+                b_obj = self.process(bam_outdir = bam_outdir, picard_outdir = picard_outdir,
                                      reference_dir = reference_dir, fasta = fasta)
                 
         return b_obj
 
 
-    def process(self, bam_outdir, reference_dir, fasta):
+    def process(self, bam_outdir, picard_outdir, reference_dir, fasta):
  
         sample = self.sample
         bam_dir = self.bam_dir
@@ -371,9 +373,9 @@ class Bam:
         bam_path = bam_temppath        
         bam_temppath = os.path.join(bam_tempdir, sample + "_picard.bam")
 
-        metrics_temppath = os.path.join(bam_tempdir, sample + "_metrics.bam")
-    
-        picard_mark_duplicates_c = "MarkDuplicates I=" + bam_path + " O=" + bam_temppath + " M=" + metrics_temppath + " TMP_DIR=" + tmp_dir + " ASSUME_SORT_ORDER=queryname VERBOSITY=WARNING" 
+        picard_dup_path = os.path.join(picard_outdir, sample + ".dup_metrics.txt")
+        
+        picard_mark_duplicates_c = "MarkDuplicates I=" + bam_path + " O=" + bam_temppath + " M=" + picard_dup_path + " TMP_DIR=" + tmp_dir + " ASSUME_SORT_ORDER=queryname VERBOSITY=WARNING" 
 
         print("running MarkDuplicates")
         print(picard_mark_duplicates_c)
@@ -404,7 +406,17 @@ class Bam:
 
         print('deleting temporary directory ' + bam_tempdir)
         shutil.rmtree(bam_tempdir)
-        
+
+        picard_metrix_prefix = os.path.join(picard_outdir, sample)
+
+        picard_collect_metrics_c = 'CollectMultipleMetrics I=' + bam_outpath + ' O=' + picard_metrix_prefix + ' R=' + fasta_path
+
+        print("running CollectMultipleMetrics")
+        print(picard_collect_metrics_c)
+
+        os.system(picard_collect_metrics_c)
+
+
         bam_dict = {}
         bam_dict[bam_key] = bam_outfile
 
@@ -575,8 +587,8 @@ class Bam:
             f1_string = '--known-sites ' + f1_path
             known_sites_string = known_sites_string + f1_string + ' '
 
-
-        gatk_recalibrate_c = "gatk BaseRecalibrator --verbosity=WARNING --preserve-qscores-less-than 6  -R " + fasta_path + " -I " + bam_path + " -O " + recal_outpath + intervals_option + ' ' + known_sites_string
+        ## --java-options \"-Xmx8G -Xms8G\"    
+        gatk_recalibrate_c = "gatk BaseRecalibrator --verbosity WARNING --preserve-qscores-less-than 6  -R " + fasta_path + " -I " + bam_path + " -O " + recal_outpath + intervals_option + ' ' + known_sites_string
 
         
         print("running GATK BaseRecalibrator")
@@ -584,7 +596,7 @@ class Bam:
 
         os.system(gatk_recalibrate_c)
 
-        gatk_applybqsr_c = "gatk ApplyBQSR -verbosity=WARNING --read-filter MappingQualityNotZeroReadFilter --preserve-qscores-less-than 6 --static-quantized-quals 10 --static-quantized-quals 20 --static-quantized-quals 30 -R " + fasta_path + " -I " + bam_path + " --bqsr-recal-file " + recal_outpath + ' -O ' + bam_outpath + intervals_option
+        gatk_applybqsr_c = "gatk ApplyBQSR -verbosity WARNING --read-filter MappingQualityNotZeroReadFilter --preserve-qscores-less-than 6 --static-quantized-quals 10 --static-quantized-quals 20 --static-quantized-quals 30 -R " + fasta_path + " -I " + bam_path + " --bqsr-recal-file " + recal_outpath + ' -O ' + bam_outpath + intervals_option
 
         
         print("running GATK ApplyBQSR")
@@ -740,10 +752,8 @@ class Bam:
         if not os.path.exists(outdir):
             print("directory " + outdir + " does not exist.")
             sys.exit()
-            
-        ## --java-options "-Xmx4g"
-            
-        hc_c = 'gatk HaplotypeCaller --verbosity=ERROR -R ' + fasta_path + ' -I ' + bam_path + ' -O ' + vcf_outpath + ' -ERC GVCF' + intervals_option
+
+        hc_c = 'gatk HaplotypeCaller --verbosity ERROR -R ' + fasta_path + ' -I ' + bam_path + ' -O ' + vcf_outpath + ' -ERC GVCF' + intervals_option
 
         print("running HaplotypeCaller")
         print(hc_c)

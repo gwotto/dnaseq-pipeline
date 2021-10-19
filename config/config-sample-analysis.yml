@@ -57,11 +57,11 @@ mapper-options: "-K 100000000 -Y -t 4 -v 2"
 
 ## SGE job submission
 ## sets tmem and h_vmem
-mem: 3G
+mem: 8G
 ## sets tscratch, reserving this amount of space on the scratch0
 ## set to low value in case scratch is False
-tscratch: 10G
-time: "00:12:00"
+tscratch: 1G
+time: "00:30:00"
 
 
 ################################
@@ -81,4 +81,4 @@ module-lib: /share/apps/cto/modulefiles
 ## on the computer science cluster
 module-init: /usr/share/lmod/lmod/init/env_modules_python.py
 
-module-list: python/3.6.1, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.21.8,  sambamba/0.5.9, samblaster/0.1.24, gatk/4.1.4.1, R/3.6.1
+module-list: python/3.6.1, java/15.0.2, R/4.0.2, bwa/0.7.15, samtools/1.8, fastqc/0.11.4, picard-tools/2.21.8, sambamba/0.5.9, samblaster/0.1.24, gatk/4.1.4.1

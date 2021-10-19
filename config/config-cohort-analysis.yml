@@ -9,7 +9,7 @@ outdir: /path/to/output-directory/
 scratchdir: /path/to/scratch-directory/
 
 grep-column: 0
-grep-term: ""
+grep-term: ''
 paired-end: 1
 
 
@@ -56,11 +56,11 @@ filter-string: '--filter-expression "ExcessHet > 54.69" --filter-name ExcessHet'
 
 ## SGE job submission
 ## sets tmem and h_vmem
-mem: 3G
+mem: 8G
 ## sets tscratch, reserving this amount of space on the scratch0
 ## set to low value in case scratch is False
-tscratch: 10G
-time: "00:12:00"
+tscratch: 1G
+time: "00:30:00"
 
 
 ################################
@@ -77,7 +77,7 @@ module-lib: /share/apps/cto/modulefiles
 ## NOTE: this path differs on the various systems
 ## on andrey
 ## module-init: /usr/share/modules/init/python.py
-## on the cumputer science cluster
+## on the computer science cluster
 module-init: /usr/share/lmod/lmod/init/env_modules_python.py
 
-module-list: python/3.6.1, gatk/4.1.4.1, R/3.6.1, picard-tools/2.21.8
+module-list: python/3.6.1, java/15.0.2, R/4.0.2, gatk/4.1.4.1, picard-tools/2.21.8

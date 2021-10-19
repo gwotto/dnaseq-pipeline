@@ -4,6 +4,22 @@
 For a tutorial how to use this software, please consult the manual:
 dnaseq-pipeline-manual.pdf
 
+## Software dependencies
+
+Needs the following software installed:
+
+- BWA
+- SAMtools
+- Picard
+- Sambamba
+- samblaster
+- Genome Analysis Toolkit (GATK)
+- R with packages
+    - ggplot2
+	- gsalib
+- Java >= 1.8
+- python3
+
 ## Questions/Discussion points ##
 
 * Potential conflicts can arise when there are multiple environment
@@ -105,6 +121,8 @@ dnaseq-pipeline-manual.pdf
 
 ## Release Notes ##
 
+* 0.1.5
+   * picard quality metrics
 * 0.1.4
   * pipeline running with python 3.6 now
 	

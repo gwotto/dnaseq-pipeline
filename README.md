@@ -123,6 +123,7 @@ Needs the following software installed:
 
 * 0.1.5
    * picard quality metrics
+
 * 0.1.4
   * pipeline running with python 3.6 now
 	

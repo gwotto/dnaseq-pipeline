@@ -171,11 +171,13 @@ for sample in id_dict:
    ## qsub variables
 
    if run_mode == 'cluster' or run_mode == 'test':
-      mem = cfg['mem']
-      tscratch = cfg['tscratch']
-      time = cfg['time']
 
-      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd -l tmem=' + mem + ',h_vmem=' + mem + ',tscratch=' + tscratch + ',h_rt=' + time + ' -V -N ' + sample + '_alignment'
+      qsub_var = cfg['qsub-var'] 
+      # mem = cfg['mem']
+      # tscratch = cfg['tscratch']
+      # time = cfg['time']
+
+      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd' + ' -V -N ' + sample + '_alignment' + ' -l ' + qsub_var
 
    if run_mode == 'cluster':
       print('\nrunning the pipeline on the sge queue')

@@ -55,12 +55,11 @@ filter-string: '--filter-expression "ExcessHet > 54.69" --filter-name ExcessHet'
 ################################
 
 ## SGE job submission
-## sets tmem and h_vmem
-mem: 8G
-## sets tscratch, reserving this amount of space on the scratch0
-## set to low value in case scratch is False
-tscratch: 1G
-time: "00:30:00"
+## sets memory and time
+## tscratch reserves space on the scratch0 set to low value or ommit
+## in case scratch is False
+
+qsub-var: tmem=8G,h_vmem=8G,tscratch=1G,h_rt=01:00:00
 
 
 ################################

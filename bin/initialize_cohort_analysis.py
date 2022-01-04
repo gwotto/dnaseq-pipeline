@@ -173,7 +173,7 @@ for cohort in cohort_dict:
       # tscratch = cfg['tscratch']
       # time = cfg['time']
 
-      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd ' + ' -V -N ' + cohort + '_variant_calling' + ' -l ' qsub_var
+      qsub_options = '-S /bin/bash -o ' + log_dir + ' -e ' + log_dir + ' -cwd ' + ' -V -N ' + cohort + '_variant_calling' + ' -l ' + qsub_var
 
    if run_mode == 'cluster':
       print("\nrunning the pipeline on the sge queue")

@@ -89,7 +89,7 @@ alignment parts follows alignment pipeline standards described in
   Statistical Genetics} (University of Michigan).
 
 The variant calling and variant refinement part of the pipeline
-follows the GATK
+follows GATK
 \href{https://software.broadinstitute.org/gatk/best-practices/workflow?id=11145}{Best
   Practices}, in particular the
 \href{https://github.com/gatk-workflows/broad-prod-wgs-germline-snps-indels/blob/master/PairedEndSingleSampleWf.wdl}{single
@@ -97,19 +97,24 @@ follows the GATK
 \href{https://github.com/gatk-workflows/broad-prod-wgs-germline-snps-indels/blob/master/JointGenotypingWf.wdl}{cohort} workflows.
 
 
-\section{Pipeline structure}
-\label{sec:pipeline-structure}
+\section{Pipeline workflow}
+\label{sec:pipeline-workflow}
 
-This pipeline is a python package consisting of scripts to run the
-pipeline and a collection of python modules which define classes and
-methods (see class diagram xx). It consists of two parts: (1) An
-analysis pipeline that works on a per-sample level, aligning and
-processing sequencing reads and performing variant calling, resulting
-in a single-sample \texttt{GVCF} file
-(\cref{fig:sampleAnalysis}). (2) A cohort-level analysis pipeline that
-combines \texttt{GVCF} files from a family or cohort and performs
-variant recalibration and genotyping (\cref{fig:cohortAnalysis}).
 
+The workflow implemented in this pipline is outlined in
+\cref{fig:sampleAnalysis,,fig:cohortAnalysis}. QC metrics are
+generated using \texttt{FastQC} \citep{2020FastQC}. Alignment of
+sequencing reads to the reference genome is carried out using
+\texttt{bwa mem} \citep{Li2013Aligningsequencereads}. Bam files are
+processed, sorted and indexed using \texttt{SAMBLASTER}
+\citep{Faust2014SAMBLASTERfastduplicate}, \texttt{Samtools}
+\citep{Li2009SequenceAlignmentMapformat} and \texttt{Sambamba}
+\citep{Tarasov2015Sambambafastprocessing}. Duplicate read pairs are
+marked by \texttt{Picard tools} \citep{2020Picard}. Base quality
+calibration is performed using \texttt{BaseRecalibrator}, part of the
+\texttt{GATK} software package \citep{2020GATKGenomeAnalysis}. Variant
+calling, genotyping, calibration and indexing is carried out using
+\texttt{GATK} software.
 
 \begin{figure}
   \begin{center}
@@ -129,9 +134,23 @@ variant recalibration and genotyping (\cref{fig:cohortAnalysis}).
 \end{figure}
 
 
+
+\section{Pipeline structure}
+\label{sec:pipeline-structure}
+
+This pipeline is a python package consisting of scripts to run the
+pipeline and a collection of python modules which define classes and
+methods (see class diagram xx). It consists of two parts: (1) An
+analysis pipeline that works on a per-sample level, aligning and
+processing sequencing reads and performing variant calling, resulting
+in a single-sample \texttt{GVCF} file
+(\cref{fig:sampleAnalysis}). (2) A cohort-level analysis pipeline that
+combines \texttt{GVCF} files from a family or cohort and performs
+variant recalibration and genotyping (\cref{fig:cohortAnalysis}).
+
 The pipeline is designed to run on a variety of computing
 environments, e.g. on an \texttt{SGE} queueing system or an
-interactive shell. I order to achieve this, the pipeline workflows
+interactive shell. In order to achieve this, the pipeline workflows
 consist of two levels: Wrapper scripts
 (\texttt{initialize\_sample\_analysis.py},
 \texttt{initialize\_cohort\_analysis.py}), which take the sample
@@ -139,8 +158,8 @@ information from a text file and configurations from a yaml file. They
 create the commands, environments and data structures for the pipeline
 scripts (\texttt{sample\_analysis.py}, \texttt{cohort\_analysis.py})
 and send the jobs to the cluster queue or run them directly as a new
-process on the server. This is exemplified in
-\Cref{fig:pipelineProcess}.
+process on the server. This is outlined in
+\cref{fig:pipelineProcessSample,,fig:pipelineProcessCohort}.
 
 
 \begin{enumerate}
@@ -163,7 +182,7 @@ process on the server. This is exemplified in
   \begin{center}
     \includestandalone[scale=0.8]{fig-pipeline-structure-samples}
     \caption[cohort analysis]{Pipeline process deployment, samples}
-  \label{fig:pipelineProcess}
+  \label{fig:pipelineProcessSample}
 \end{center}
 \end{figure}
 
@@ -172,7 +191,7 @@ process on the server. This is exemplified in
   \begin{center}
     \includestandalone[scale=0.8]{fig-pipeline-structure-cohort}
     \caption[cohort analysis]{Pipeline process deployment, cohort}
-  \label{fig:pipelineProcess}
+  \label{fig:pipelineProcessCohort}
 \end{center}
 \end{figure}
 
@@ -220,7 +239,7 @@ and it is assumed that every program needed is in the path.
 \label{sec:wgs-sample-analysis-1}
 
 
-The sample analysis pipeline (\Cref{fig:sampleAnalysis}) is
+The sample analysis pipeline (\cref{fig:sampleAnalysis}) is
 initialized and started by the command
 
 \begin{lstlisting}
@@ -482,9 +501,6 @@ test-sample-analysis.py
 To test a pipeline run on the cluster, the pipeline can be run with
 the test data and the configuration file configured appropriatedly.
   
-
-
-
 
 
 \section{Getting help}

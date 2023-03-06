@@ -1,5 +1,84 @@
 % Encoding: UTF-8
 
+@Online{2020FastQC,
+  date      = {2020},
+  title     = {FastQC},
+  url       = {http://www.bioinformatics.babraham.ac.uk/projects/fastqc/},
+  urldate   = {2015-12-18},
+  groups    = {project-ich, RNA-Seq pipeline, WGS, GG_2018_010},
+  owner     = {georgotto},
+  timestamp = {2015-12-18},
+}
+
+@Online{2020GATKGenomeAnalysis,
+  date      = {2020-04-09},
+  title     = {GATK: Genome Analysis Toolkit},
+  url       = {https://gatk.broadinstitute.org/hc/en-us},
+  groups    = {WGS, GG_2018_010},
+  timestamp = {2020-04-09},
+}
+
+
+@Online{2020Picard,
+  date      = {2020-04-09},
+  title     = {Picard},
+  url       = {https://broadinstitute.github.io/picard/},
+  groups    = {WGS, GG_2018_010},
+  timestamp = {2020-04-09},
+}
+
+@Article{Faust2014SAMBLASTERfastduplicate,
+  author       = {G. G. Faust and I. M. Hall},
+  date         = {2014-05},
+  journaltitle = {Bioinformatics},
+  title        = {{SAMBLASTER}: fast duplicate marking and structural variant read extraction},
+  doi          = {10.1093/bioinformatics/btu314},
+  number       = {17},
+  pages        = {2503--2505},
+  volume       = {30},
+  file         = {:Faust2014SAMBLASTERfastduplicate.pdf:PDF},
+  groups       = {WGS, GG_2018_010},
+  owner        = {georgotto},
+  publisher    = {Oxford University Press ({OUP})},
+  timestamp    = {2018-09-04},
+}
+
+@Article{Li2009SequenceAlignmentMapformat,
+  author       = {Heng Li and Bob Handsaker and Alec Wysoker and Tim Fennell and Jue Ruan and Nils Homer and Gabor Marth and Goncalo Abecasis and Richard Durbin and 1000 Genome Project Data Processing Subgroup},
+  date         = {2009-08},
+  journaltitle = {Bioinformatics},
+  title        = {The Sequence Alignment/Map format and SAMtools.},
+  doi          = {10.1093/bioinformatics/btp352},
+  language     = {eng},
+  number       = {16},
+  pages        = {2078--2079},
+  volume       = {25},
+  abstract     = {SUMMARY: The Sequence Alignment/Map (SAM) format is a generic alignment format for storing read alignments against reference sequences, supporting short and long reads (up to 128 Mbp) produced by different sequencing platforms. It is flexible in style, compact in size, efficient in random access and is the format in which alignments from the 1000 Genomes Project are released. SAMtools implements various utilities for post-processing alignments in the SAM format, such as indexing, variant caller and alignment viewer, and thus provides universal tools for processing read alignments. AVAILABILITY: http://samtools.sourceforge.net.},
+  file         = {:Li2009SequenceAlignmentMapformat.pdf:PDF},
+  groups       = {project-wimm, rnaseq-analysis, project-ich, RNA-Seq pipeline, WGS, GG_2018_010},
+  institution  = {Wellcome Trust Sanger Institute{\,} Wellcome Trust Genome Campus{\,} Cambridge{\,} CB10 1SA{\,} UK{\,} Broad Institute of MIT and Harvard{\,} Cambridge{\,} MA 02141{\,} USA.},
+  keywords     = {Algorithms; Base Sequence; Computational Biology, methods; Genome; Genomics; Molecular Sequence Data; Sequence Alignment, methods; Sequence Analysis, DNA, methods; Software},
+  medline-pst  = {ppublish},
+  owner        = {gwo},
+  pmid         = {19505943},
+  timestamp    = {2011-07-13},
+}
+
+@Article{Li2013Aligningsequencereads,
+  author       = {Heng Li},
+  date         = {2013-03-16},
+  journaltitle = {arXiv},
+  title        = {Aligning sequence reads, clone sequences and assembly contigs with BWA-MEM},
+  eprint       = {1303.3997},
+  eprintclass  = {q-bio.GN},
+  eprinttype   = {arXiv},
+  abstract     = {Summary: BWA-MEM is a new alignment algorithm for aligning sequence reads or long query sequences against a large reference genome such as human. It automatically chooses between local and end-to-end alignments, supports paired-end reads and performs chimeric alignment. The algorithm is robust to sequencing errors and applicable to a wide range of sequence lengths from 70bp to a few megabases. For mapping 100bp sequences, BWA-MEM shows better performance than several state-of-art read aligners to date. Availability and implementation: BWA-MEM is implemented as a component of BWA, which is available at http://github.com/lh3/bwa. Contact: hengli@broadinstitute.org},
+  file         = {:Li2013Aligningsequencereads.pdf:PDF},
+  groups       = {WGS, GG_2018_010},
+  keywords     = {q-bio.GN},
+  timestamp    = {2021-09-15},
+}
+
 @Article{Regier2018Functionalequivalenceof,
   author       = {Allison A Regier and Yossi Farjoun and David Larson and Olga Krasheninina and Hyun Min Kang and Daniel P Howrigan and Bo-Juen Chen and Manisha Kher and Eric Banks and Darren C Ames and Adam C English and Heng Li and Goncalo R Abecasis and Will Salerno and Michael C Zody and Benjamin M Neale and Ira M Hall and},
   title        = {Functional equivalence of genome sequencing analysis pipelines enables harmonized variant calling across human genetics projects},
@@ -13,15 +92,17 @@
   timestamp    = {2018.04.17},
 }
 
-@Comment{jabref-meta: databaseType:biblatex;}
-
-@Comment{jabref-meta: grouping:
-0 AllEntriesGroup:;
-1 StaticGroup:RNA-Seq\;0\;1\;\;\;\;;
-1 StaticGroup:publications\;0\;1\;\;\;\;;
-1 StaticGroup:multi-omics\;0\;1\;\;\;\;;
-1 StaticGroup:statistics\;0\;1\;\;\;\;;
-1 StaticGroup:project-ich\;0\;1\;\;\;\;;
-1 StaticGroup:sequencing\;0\;1\;\;\;\;;
-2 StaticGroup:dnaseq-pipeline\;0\;1\;\;\;\;;
+@Article{Tarasov2015Sambambafastprocessing,
+  author       = {Artem Tarasov and Albert J. Vilella and Edwin Cuppen and Isaac J. Nijman and Pjotr Prins},
+  date         = {2015-02},
+  journaltitle = {Bioinformatics},
+  title        = {Sambamba: fast processing of {NGS} alignment formats},
+  doi          = {10.1093/bioinformatics/btv098},
+  number       = {12},
+  pages        = {2032--2034},
+  volume       = {31},
+  file         = {:Tarasov2015Sambambafastprocessing.pdf:PDF},
+  groups       = {WGS, GG_2018_010},
+  publisher    = {Oxford University Press ({OUP})},
+  timestamp    = {2021-09-15},
 }

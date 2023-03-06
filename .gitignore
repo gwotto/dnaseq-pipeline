@@ -2,6 +2,7 @@
 *.el
 *.pyc
 *.pkl
+.DS_Store
 
 ## ignore files  in test-outdir
 /test/test-outdir/

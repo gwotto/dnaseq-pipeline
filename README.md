@@ -64,6 +64,8 @@ Needs the following software installed:
 
 ## TODOs ##
 
+* software in conda environment
+
 * Include QC step, e.g. picard CollectMultipleMetrics
 
 * optimise for scratch directory use, scratch directory use as the default

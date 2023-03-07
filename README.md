@@ -1,5 +1,6 @@
 # The GOSgene DNA-seq processing pipeline #
 
+
 For a tutorial how to use this software, please consult the manual:
 dnaseq-pipeline-manual.pdf
 
